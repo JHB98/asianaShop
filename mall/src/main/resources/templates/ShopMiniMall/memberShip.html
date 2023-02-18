@@ -21,7 +21,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#!">아시아나 면세점</a>
+            <a class="navbar-brand" th:href="@{/ShopMiniMall/main}">아시아나 면세점</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -30,7 +30,7 @@
                     <li class="nav-item"><a class="nav-link active" aria-current="page"
                             th:href="@{/ShopMiniMall/member}">로그인</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/member}">회원가입</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/ShopMiniMall/MemberUIServlet}">회원가입</a></li>
                 </ul>
             </div>
         </div>
@@ -47,32 +47,15 @@
     <div class="container">
         <form role="form" th:action="@{/ShopMiniMall/membership}" th:object="${member}" method="post">
             <div class="form-group">
-                <label th:for="id">아이디</label>
+                <label th:for="id">* 아이디</label>
                 <input type="text" th:field="*{id}" class="form-control" placeholder="아이디">
+                <span th:style="${'color: red; font-size:11px;'}" th:text="${valid_id}"></span>
             </div>
-            <!-- $.ajax({
-            type: 'GET',
-            url: '/rest/checkPwd',
-            data: {'checkPassword': checkPassword},
-            datatype: "text"
-            }).done(function(result){
-            console.log(result);
-            if(result){
-            console.log("비밀번호 일치");
-            window.location.href="/settings/update";
-            } else if(!result){
-            console.log("비밀번호 틀림");
-            // 비밀번호가 일치하지 않으면
-            alert("비밀번호가 맞지 않습니다.");
-            window.location.reload();
-            } -->
             <div class="form-group">
-                <label th:for="pwd">비밀번호</label>
+                <label th:for="pwd">* 비밀번호</label>
                 <input type="password" th:field="*{pwd}" class="form-control" placeholder="비밀번호">
+                <span th:style="${'color: red; font-size:11px;'}" th:text="${valid_pwd}"></span>
             </div>
-            <!-- <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-                비밀번호 불일치
-            </div> -->
             <div class="form-group">
                 <label th:for="name">이름</label>
                 <input type="text" th:field="*{name}" class="form-control" placeholder="이름">

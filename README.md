@@ -1,15 +1,8 @@
-id
-password
-이름
-주소
-전화번호
-이메일
-
-
+멤버 생성
 ```sql
 CREATE TABLE MEMBERS(
    ID VARCHAR(50) PRIMARY KEY,
-   PWD VARCHAR(50) not null,
+   PWD VARCHAR(100) not null,
    NAME  VARCHAR(50) not null,
    ADDRESS VARCHAR(200) not null,
    PHONE VARCHAR(15) not null,
@@ -62,12 +55,8 @@ VALUES
 );
 ```
 
-PostgreSQL 사용법
-PostgreSQL docker 활용법
 docker desktop 설치
-
 https://www.docker.com/
-Docker Desktop Installer.exe
 
 PostgreSQL 설치
 docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
@@ -91,8 +80,75 @@ docker stop postgres
 PostgreSQL 사용법 (인터넷자료)
 https://velog.io/@gwak2837/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%8B%A4%EC%8A%B52
 
-DB 관련 툴
-구분	URL	파일
-DBever	https://dbeaver.io/	dbeaver-ce-22.3.3-x86_64-setup.exe
-DataGrip	https://www.jetbrains.com/datagrip/	
-SQL Developer	https://www.oracle.com/kr/database/sqldeveloper/	sqldeveloper-22.2.1.234.1810-x64.zip
+
+프로덕트 생성
+```sql
+CREATE TABLE product(
+   number INTEGER PRIMARY KEY,
+   brand VARCHAR(50) not null,
+   name VARCHAR(50) not null,
+   price  INTEGER not null,
+   category VARCHAR(10) not null
+);
+```
+
+```sql
+INSERT INTO product
+VALUES
+(
+   1111,
+   '수아레',
+   '워셔블 니트',
+   39900,
+   'TOP'
+),
+(
+   2222,
+   '스파오',
+   '(시티보이) 오버핏 옥스포드 셔츠',
+   35910,
+   'TOP'
+),
+(
+   3333,
+   '예일',
+   '2 TONE ARCH HOODIE GRAY',
+   63200,
+   'TOP'
+),
+(
+   4214124,
+   '어반드레스',
+   'SHINE SLIM ONEPIECE SKY',
+   26550,
+   'DRESS'
+),
+(
+   15515,
+   '하트클럽',
+   'HEART 21 카라 리본 로고 드레스',
+   109000,
+   'DRESS'
+),
+(
+   567567,
+   '파르티',
+   '멘토 오바사이즈 롱 코트',
+   46500,
+   'OUTER'
+),
+(
+   464578,
+   '스파오',
+   '파스텔 푸퍼',
+   39900,
+   'OUTER'
+),
+(
+   53736,
+   '제로',
+   'Deep One Tuck Sweat Pants',
+   39000,
+   'BOTTOM'
+);
+```

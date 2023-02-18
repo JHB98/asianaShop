@@ -1,19 +1,34 @@
 package com.asiana.mall.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import com.asiana.mall.service.UserDetailsServiceImpl;
+
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    UserDetailsServiceImpl userDetailsServiceImpl;
+
+    public SpringSecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl) {
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/ShopMiniMall/main").permitAll()
+                .antMatchers("/ShopMiniMall/main",
+                        "/ShopMiniMall/MemberUIServlet",
+                        "/ShopMiniMall/membership",
+                        "/ShopMiniMall/Message",
+                        "/ShopMiniMall/product/{number}")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -24,11 +39,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/ShopMiniMall/main", true)
                 .permitAll()
                 .and()
-                .logout();
+                .logout()
+                .logoutSuccessUrl("/ShopMiniMall/main") // 로그아웃 성공시 리다이렉트 주소
+                .invalidateHttpSession(true);
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**");
+        web.ignoring().antMatchers("/css/**", "/assets/**", "/img/**");
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsServiceImpl);
     }
 }

@@ -8,4 +8,6 @@ import com.asiana.mall.vo.Cart;
 @Mapper
 public interface CartMapper {
     List<Cart> selectCart(@Param("userId") String userId);
+
+    void insertCart(@Param("cart") Cart cart);
 }

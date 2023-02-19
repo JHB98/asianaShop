@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,9 @@ import com.asiana.mall.service.ProductServiceImpl;
 import com.asiana.mall.vo.Member;
 import com.asiana.mall.vo.Message;
 import com.asiana.mall.vo.Product;
+import com.asiana.mall.vo.Cart;
 import java.util.Map;
+import java.util.Random;
 
 @Controller
 public class MainController {
@@ -40,8 +43,9 @@ public class MainController {
 	}
 
 	@GetMapping("/ShopMiniMall/main")
-	public ModelAndView getMain(Product product, ModelAndView mv) {
+	public ModelAndView getMain(Product product, ModelAndView mv, Cart cart) {
 		mv.setViewName("/ShopMiniMall/main");
+		mv.addObject("cart", cart);
 		mv.addObject("data", productService.getProduct(product));
 		return mv;
 	}
@@ -80,8 +84,9 @@ public class MainController {
 	}
 
 	@GetMapping("/ShopMiniMall/product/{number}")
-	public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv) {
+	public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart) {
 		mv.setViewName("/ShopMiniMall/product");
+		mv.addObject("cart", cart);
 		mv.addObject("data", productService.getProductById(number));
 
 		return mv;
@@ -99,6 +104,26 @@ public class MainController {
 	public ModelAndView getCart(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
 		mv.setViewName("/ShopMiniMall/cart");
 		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
+		return mv;
+	}
+
+	@PostMapping("/ShopMiniMall/cart")
+	public ModelAndView insertCart(ModelAndView mv, @AuthenticationPrincipal User userInfo, Random random, Cart cart) {
+		cart.setCartNum(random.nextInt(1000000000));
+		cart.setUserId(userInfo.getUsername());
+
+		cartService.postCart(cart);
+		mv.addObject("data", new Message("장바구니 추가가 완료되었습니다.", "/ShopMiniMall/main"));
+		mv.setViewName("/ShopMiniMall/Message");
+		return mv;
+	}
+
+	@DeleteMapping("/ShopMiniMall/cart/{cartNum}") // delete 넘어오는거 까지
+	public ModelAndView deleteCart(ModelAndView mv, @AuthenticationPrincipal User userInfo,
+			@PathVariable("cartNum") int cartNum) {
+		System.out.println(cartNum);
+		mv.setViewName("/ShopMiniMall/main");
+		// mv.addObject("data", cartService.getCart(userInfo.getUsername()));
 		return mv;
 	}
 }

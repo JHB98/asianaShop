@@ -5,4 +5,6 @@ import com.asiana.mall.vo.Cart;
 
 public interface CartService {
     List<Cart> getCart(String userId);
+
+    void postCart(Cart cart);
 }

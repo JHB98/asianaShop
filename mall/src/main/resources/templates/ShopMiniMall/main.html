@@ -108,8 +108,17 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to
-                                        cart</a>
+                                <div class="text-center">
+                                    <form role="form" sec:authorize="isAuthenticated()"
+                                        th:action="@{/ShopMiniMall/cart}" th:object="${cart}" method="post">
+                                        <input type="hidden" th:value="${product.number}" id="productNum"
+                                            name="productNum" class="form-control">
+                                        <input type="hidden" th:value=1 id="amount" name="amount" class="form-control">
+                                        <button class="btn btn-outline-dark mt-auto" type="submit">
+                                            <i class="bi-cart-fill me-1"></i>
+                                            Add to cart
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

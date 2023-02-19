@@ -19,4 +19,9 @@ public class CartServiceImpl implements CartService {
     public List<Cart> getCart(String userId) {
         return cartMapper.selectCart(userId);
     }
+
+    @Override
+    public void postCart(Cart cart) {
+        cartMapper.insertCart(cart);
+    }
 }

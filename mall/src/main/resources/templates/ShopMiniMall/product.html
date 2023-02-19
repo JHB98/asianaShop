@@ -63,12 +63,17 @@
                         <span th:text="|${data.price}원|"></span>
                     </div>
                     <div sec:authorize="isAuthenticated()" class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
-                            style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                            <i class="bi-cart-fill me-1"></i>
-                            Add to cart
-                        </button>
+                        <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}"
+                            th:object="${cart}" method="post">
+                            <input class="form-control text-center me-3" id="amount" name="amount" type="num"
+                                th:value="1" style="max-width: 3rem" />
+                            <input type="hidden" th:value="${data.number}" id="productNum" name="productNum"
+                                class="form-control">
+                            <button class="btn btn-outline-dark" style="margin-top : 15px" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                Add to cart
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

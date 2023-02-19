@@ -9,4 +9,8 @@
 			SELECT * FROM cart c JOIN product p ON c.productNum = p.number WHERE userId = #{userId}
     </select>
 
+    <insert id="insertCart">
+        INSERT INTO cart
+        VALUES (#{cart.cartNum},#{cart.userId},#{cart.productNum},#{cart.amount})
+    </insert>
 </mapper>

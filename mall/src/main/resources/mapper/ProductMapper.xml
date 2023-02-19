@@ -13,4 +13,8 @@
 			SELECT * FROM product WHERE number = #{number}
     </select>
 
+    <select id="selectProductByCategory" resultType="Product">
+			SELECT * FROM product WHERE category = #{category}
+    </select>
+
 </mapper>

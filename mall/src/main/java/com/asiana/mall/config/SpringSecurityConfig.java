@@ -27,7 +27,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/ShopMiniMall/MemberUIServlet",
                         "/ShopMiniMall/membership",
                         "/ShopMiniMall/Message",
-                        "/ShopMiniMall/product/{number}")
+                        "/ShopMiniMall/product/{number}",
+                        "/ShopMiniMall/product/category/{category}")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -46,7 +47,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/assets/**", "/img/**");
+        web.ignoring().antMatchers("/css/**", "/assets/**", "/img/**", "/js/**");
     }
 
     @Override

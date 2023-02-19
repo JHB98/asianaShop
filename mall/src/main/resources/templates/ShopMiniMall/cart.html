@@ -29,9 +29,6 @@
                     <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active"
                             aria-current="page" th:text="|${#authentication.name}님 환영합니다!|"></a>
                     </li>
-                    <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link active"
-                            aria-current="page" th:href="@{/ShopMiniMall/member}">로그인</a>
-                    </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form role="form" th:action="@{/logout}" method="post">
                             <button class="btn btn-outline-dark" type="submit">
@@ -39,8 +36,6 @@
                             </button>
                         </form>
                     </li>
-                    <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
-                            th:href="@{/ShopMiniMall/MemberUIServlet}">회원가입</a></li>
                 </ul>
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
                     <button class="btn btn-outline-dark" type="submit">
@@ -52,28 +47,50 @@
         </div>
     </nav>
     <!-- Product section-->
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="row gx-4 gx-lg-5 align-items-center">
-                <div class="col-md-6"><img class="card-img-top" th:src="|/img/${data.number}.jpg|" alt="..." /></div>
-                <div class="col-md-6">
-                    <div class="small mb-1" th:text="${data.brand}"></div>
-                    <h1 class="display-5 fw-bolder" th:text="${data.name}"></h1>
-                    <div class="fs-5 mb-5">
-                        <span th:text="|${data.price}원|"></span>
-                    </div>
-                    <div sec:authorize="isAuthenticated()" class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
-                            style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                            <i class="bi-cart-fill me-1"></i>
-                            Add to cart
-                        </button>
-                    </div>
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h2 class="m-0 font-weight-bold">장바구니</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Product Number</th>
+                                <th>Brand</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="cart : ${data}">
+                                <td th:text="|${cart.productNum}|"></td>
+                                <td th:text="|${cart.brand}|"></td>
+                                <td th:text="|${cart.name}|"></td>
+                                <td th:text="|${cart.price}원|"></td>
+                                <td th:text="|${cart.amount}|"></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get"
+                    class="form-check-inline">
+                    <button class="btn btn-outline-dark" type="submit">
+                        전체 구매
+                    </button>
+                </form>
+                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get"
+                    class="form-check-inline">
+                    <button class="btn btn-outline-dark" type="submit">
+                        선택 구매
+                    </button>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">

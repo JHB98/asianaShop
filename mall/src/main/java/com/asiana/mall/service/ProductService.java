@@ -9,4 +9,6 @@ public interface ProductService {
 
     Product getProductById(int number);
 
+    List<Product> getProductByCategory(String category);
+
 }

@@ -2,6 +2,8 @@ package com.asiana.mall.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.asiana.mall.service.CartServiceImpl;
 import com.asiana.mall.service.MemberServiceImpl;
 import com.asiana.mall.service.ProductServiceImpl;
 import com.asiana.mall.vo.Member;
@@ -23,10 +26,13 @@ public class MainController {
 
 	private final MemberServiceImpl memberService;
 	private final ProductServiceImpl productService;
+	private final CartServiceImpl cartService;
 
-	public MainController(MemberServiceImpl memberService, ProductServiceImpl productService) {
+	public MainController(MemberServiceImpl memberService, ProductServiceImpl productService,
+			CartServiceImpl cartService) {
 		this.memberService = memberService;
 		this.productService = productService;
+		this.cartService = cartService;
 	}
 
 	public String encodeBcrypt(String pwd) {
@@ -53,14 +59,6 @@ public class MainController {
 		return "/ShopMiniMall/memberShip";
 	}
 
-	@GetMapping("/ShopMiniMall/product/{number}")
-	public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv) {
-		mv.setViewName("/ShopMiniMall/product");
-		mv.addObject("data", productService.getProductById(number));
-
-		return mv;
-	}
-
 	@PostMapping("/ShopMiniMall/membership")
 	public ModelAndView insertMember(@Valid Member member, Errors errors, ModelAndView mv) {
 		if (errors.hasErrors()) {
@@ -78,6 +76,29 @@ public class MainController {
 		mv.addObject("data", new Message("회원가입이 완료되었습니다.", "/ShopMiniMall/main"));
 		mv.setViewName("/ShopMiniMall/Message");
 
+		return mv;
+	}
+
+	@GetMapping("/ShopMiniMall/product/{number}")
+	public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv) {
+		mv.setViewName("/ShopMiniMall/product");
+		mv.addObject("data", productService.getProductById(number));
+
+		return mv;
+	}
+
+	@GetMapping("/ShopMiniMall/product/category/{category}")
+	public ModelAndView getProductByCategory(ModelAndView mv, @PathVariable("category") String category) {
+		mv.setViewName("/ShopMiniMall/main :: resultProduct");
+		mv.addObject("data", productService.getProductByCategory(category));
+
+		return mv;
+	}
+
+	@GetMapping("/ShopMiniMall/cart")
+	public ModelAndView getCart(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
+		mv.setViewName("/ShopMiniMall/cart");
+		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
 		return mv;
 	}
 }

@@ -10,4 +10,6 @@ public interface ProductMapper {
     List<Product> selectProduct(Product product);
 
     Product selectProductById(@Param("number") int number);
+
+    List<Product> selectProductByCategory(@Param("category") String category);
 }

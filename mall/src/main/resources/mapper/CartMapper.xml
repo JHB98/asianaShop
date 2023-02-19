@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asiana.mall.repository.CartMapper">
+
+    <select id="selectCart" resultType="Cart">
+			SELECT * FROM cart c JOIN product p ON c.productNum = p.number WHERE userId = #{userId}
+    </select>
+
+</mapper>

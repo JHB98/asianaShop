@@ -152,3 +152,50 @@ VALUES
    'BOTTOM'
 );
 ```
+
+장바구니 생성
+
+```sql
+CREATE TABLE cart(
+   cartNum INTEGER PRIMARY KEY,
+   userId VARCHAR(50) REFERENCES members(id),
+   productNum INTEGER REFERENCES product(number),
+   amount INTEGER not null
+);
+```
+
+
+```sql
+INSERT INTO cart
+VALUES
+(
+   1,
+   'munsoo',
+   567567,
+   2
+),
+(
+   2,
+   'munsoo',
+   1111,
+   1
+),
+(
+   3,
+   'munsoo',
+   2222,
+   4
+),
+(
+   4,
+   'munsoo2',
+   3333,
+   10
+),
+(
+   5,
+   'munsoo2',
+   4214124,
+   2
+);
+```

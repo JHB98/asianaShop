@@ -15,6 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 
 <body>
@@ -36,7 +37,7 @@
         </div>
     </nav>
     <!-- Header-->
-    <header class="bg-dark py-5">
+    <header class="bg-dark py-5" style="background-image: url('../img/banner.png');">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">로그인</h1>
@@ -54,9 +55,13 @@
                 <label th:for="pwd">비밀번호</label>
                 <input type="password" th:field="*{pwd}" class="form-control" placeholder="비밀번호">
             </div>
-            <button type="submit" class="btn btn-primary">로그인</button>
+            <button type="submit" class="btn btn-outline-dark" style="margin-top : 15px">로그인</button>
         </form>
-        <button type="button" class="btn btn-primary">취소</button>
+        <form th:action="@{/ShopMiniMall/main}" method="get" class="d-flex">
+            <button class="btn btn-outline-dark" type="submit">
+                취소
+            </button>
+        </form>
     </div>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
@@ -67,7 +72,7 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    <script th:src="@{/js/scripts.js}"></script>
 </body>
 
 </html>

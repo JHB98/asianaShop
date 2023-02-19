@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 
 <body>
@@ -44,34 +45,33 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">카테고리</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">TOP</a></li>
+                            <li><a class="dropdown-item" onclick="getProductByCategory('TOP')">TOP</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#!">DRESS</a></li>
+                            <li><a class="dropdown-item" onclick="getProductByCategory('DRESS')">DRESS</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#!">OUTER</a></li>
+                            <li><a class="dropdown-item" onclick="getProductByCategory('OUTER')">OUTER</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#!">BOTTOM</a></li>
+                            <li><a class="dropdown-item" onclick="getProductByCategory('BOTTOM')">BOTTOM</a></li>
                         </ul>
                     </li>
                 </ul>
-                <form sec:authorize="isAuthenticated()" class="d-flex">
+                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
                     <button class="btn btn-outline-dark" type="submit">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                     </button>
                 </form>
             </div>
         </div>
     </nav>
     <!-- Header-->
-    <header class="bg-dark py-5">
+    <header class="bg-dark py-5" style="background-image: url('../img/banner.png');">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">ASIANA Duty Free Shop</h1>
@@ -81,7 +81,8 @@
     <!-- Section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div id="resultProduct" th:fragment="resultProduct"
+                class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <th:block th:each="product : ${data}">
                     <div class="col mb-5">
                         <div class="card h-100">
@@ -126,7 +127,7 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    <script th:src="@{/js/scripts.js}"></script>
 </body>
 
 </html>

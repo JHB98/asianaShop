@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asiana.mall.repository.MemberMapper">
+
+    <select id="selectMember" resultType="Member">
+			SELECT * FROM members
+    </select>
+
+    <select id="selectMemberById" resultType="Member">
+			SELECT * FROM members WHERE id = #{id}
+    </select>
+
+    <insert id="insertMember">
+        INSERT INTO members
+        VALUES (#{member.id},#{member.pwd},#{member.name},#{member.address},#{member.phone},#{member.email})
+    </insert>
+
+</mapper>

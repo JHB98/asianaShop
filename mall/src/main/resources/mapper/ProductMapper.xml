@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asiana.mall.repository.ProductMapper">
+
+    <select id="selectProduct" resultType="Product">
+			SELECT * FROM product;
+    </select>
+
+    <select id="selectProductById" resultType="Product">
+			SELECT * FROM product WHERE number = #{number}
+    </select>
+
+    <select id="selectProductByCategory" resultType="Product">
+			SELECT * FROM product WHERE category = #{category}
+    </select>
+
+</mapper>

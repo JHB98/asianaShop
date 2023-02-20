@@ -229,7 +229,7 @@ sequenceDiagram
 ### Entity Relationship Diagrams
 ```mermaid
 erDiagram
-    members ||--|| cart : have
+    members ||--|{ cart : have
     members {
         VARCHAR id
         VARCHAR pwd
@@ -238,13 +238,13 @@ erDiagram
         VARCHAR phone
         VARCHAR email
     }
+    product ||--|{ cart : contain
     cart {
       INTEGER cartNum
       VARCHAR userId
       INTEGER productNum
       INTEGER amount
     }
-    product }o--|| cart : contain
     product {
       INTEGER number
       VARCHAR brand

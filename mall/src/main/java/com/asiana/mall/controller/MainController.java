@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.asiana.mall.service.CartServiceImpl;
@@ -55,6 +56,15 @@ public class MainController {
 		mv.setViewName("/ShopMiniMall/member");
 		mv.addObject("data", memberService.getMember(member));
 		return mv;
+	}
+
+	@GetMapping("/ShopMiniMall/member/{id}")
+	@ResponseBody
+	public String getMemberById(@PathVariable("id") String id, Member member) {
+		if (memberService.getMemberById(id) == null) {
+			return "아이디 사용 가능";
+		}
+		return "아이디 사용 불가";
 	}
 
 	@GetMapping("/ShopMiniMall/MemberUIServlet")

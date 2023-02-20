@@ -7,6 +7,8 @@ public interface MemberService {
 
     List<Member> getMember(Member member);
 
+    Member getMemberById(String id);
+
     void postMember(Member member);
 
 }

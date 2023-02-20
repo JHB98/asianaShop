@@ -15,6 +15,16 @@ function getProductByCategory (category) {
     });
 }
 
+function idCheck () {
+    id = document.getElementById('id').value;
+    $.ajax({
+        url: "/ShopMiniMall/member/" + id,
+        type: "GET",
+    }).done(function (result) {
+        document.getElementById("idAlert").innerHTML = result;
+    });
+}
+
 function execDaumPostcode () {
     new daum.Postcode({
         oncomplete: function (data) {

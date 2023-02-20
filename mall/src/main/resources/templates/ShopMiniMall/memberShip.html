@@ -63,7 +63,12 @@
             </div>
             <div class="form-group">
                 <label th:for="address">주소</label>
-                <input type="text" th:field="*{address}" class="form-control" placeholder="주소">
+                <button type="button" class="btn btn-outline-dark" style="margin-top : 10px; margin-bottom : 10px"
+                    onclick="execDaumPostcode()">
+                    주소 찾기
+                </button>
+                <input type="text" th:field="*{address}" class="form-control" placeholder="주소"
+                    onclick="execDaumPostcode()">
             </div>
             <div class="form-group">
                 <label th:for="phone">전화번호</label>
@@ -90,6 +95,7 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:src="@{/js/scripts.js}"></script>
 </body>
 

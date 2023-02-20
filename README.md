@@ -1,6 +1,6 @@
-## 🔒 팀 코드 컨벤션
+## :lock: Team Code Convention
 
-### git commit message
+### Git Commit Message
 
 | 커밋명   | 내용                                        |
 | -------- | ------------------------------------------- |
@@ -16,7 +16,7 @@
 | working  | 이미 만들어진 기능, 함수 작업중             |
 | merge    | branch merge                                |
 
-### branch
+### Branch
 
 | 브랜치명 | 내용                         |
 | -------- | ---------------------------- |
@@ -27,8 +27,24 @@
 | hotfix   | 치명적이거나 급한 버그 수정  |
 | feat     | 새로운 기능 추가             |
 
+## :file_folder: Data Base
+### DB Build
 
-멤버 생성
+| 순서 | 상세설명                         |
+| -------- | ---------------------------- |
+| docker desktop 설치  | https://www.docker.com/ |
+| PostgreSQL 설치      | docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres    |
+| PostgreSQL 내 psql 실행     | docker exec -it postgres psql -U postgres     |
+| 사용자 생성 (psql 접속 후) | create user munsoo with encrypted password 'munsoo';      |
+| 데이터베이스 생성 (psql 접속 후)  | create database project owner munsoo; |
+| 데이터베이스 접속 (psql 접속시)     | docker exec -it postgres psql -U munsoo -d project;     |
+| PostgreSQL 서비스 구동/중지     | docker start postgres   /   docker stop postgres    |
+| PostgreSQL 사용법 (인터넷자료)     | https://velog.io/@gwak2837/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%8B%A4%EC%8A%B52 |
+
+
+### DB Default Setting
+
+#### Create Member Table
 ```sql
 CREATE TABLE MEMBERS(
    ID VARCHAR(50) PRIMARY KEY,
@@ -39,7 +55,7 @@ CREATE TABLE MEMBERS(
    EMAIL VARCHAR(50) not null
 );
 ```
-
+#### Insert Member Data
 ```sql
 INSERT INTO members
 VALUES
@@ -84,34 +100,7 @@ VALUES
    'testEmail5'
 );
 ```
-
-docker desktop 설치
-https://www.docker.com/
-
-PostgreSQL 설치
-docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
-
-PostgreSQL 내 psql 실행
-docker exec -it postgres psql -U postgres
-
-사용자 생성 (psql 접속 후)
-create user munsoo with encrypted password 'munsoo';
-
-데이터베이스 생성 (psql 접속 후)
-create database project owner munsoo;
-
-데이터베이스 접속 (psql 접속시)
-docker exec -it postgres psql -U munsoo -d project;
-
-PostgreSQL 서비스 구동/중지
-docker start postgres
-docker stop postgres
-
-PostgreSQL 사용법 (인터넷자료)
-https://velog.io/@gwak2837/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%8B%A4%EC%8A%B52
-
-
-프로덕트 생성
+#### Create Product Table
 ```sql
 CREATE TABLE product(
    number INTEGER PRIMARY KEY,
@@ -121,7 +110,7 @@ CREATE TABLE product(
    category VARCHAR(10) not null
 );
 ```
-
+#### Insert Product Data
 ```sql
 INSERT INTO product
 VALUES
@@ -182,8 +171,7 @@ VALUES
    'BOTTOM'
 );
 ```
-
-장바구니 생성
+#### Create# Cart Table
 
 ```sql
 CREATE TABLE cart(
@@ -193,8 +181,7 @@ CREATE TABLE cart(
    amount INTEGER not null
 );
 ```
-
-
+#### Insert Cart Data (munsoo, munsoo2 먼저 회원가입 필수)
 ```sql
 INSERT INTO cart
 VALUES
@@ -230,3 +217,60 @@ VALUES
 );
 ```
 
+
+## :page_with_curl: Diagram
+### Sequence Diagram
+```mermaid
+sequenceDiagram
+    actor Client
+    Client->>Bob: Hi Bob
+    Bob->>Client: Hi Alice
+```
+### Entity Relationship Diagrams
+```mermaid
+erDiagram
+    members ||--|| cart : have
+    members {
+        VARCHAR id
+        VARCHAR pwd
+        VARCHAR name
+        VARCHAR address
+        VARCHAR phone
+        VARCHAR email
+    }
+    cart {
+      INTEGER cartNum
+      VARCHAR userId
+      INTEGER productNum
+      INTEGER amount
+    }
+    product }o--|| cart : contain
+    product {
+      INTEGER number
+      VARCHAR brand
+      VARCHAR name
+      INTEGER price
+      VARCHAR category
+    }
+```
+
+## :disappointed_relieved: 미구현 항목
+
+회원 등록 기능
+   - 아이디 중복 체크
+   - 비밀번호 확인 체크
+   - kakao 이용한 우편번호 찾기
+
+mypage 기능
+   - 페이지 구현
+   - 주문 확인 추가
+
+장바구니 기능
+   - check box 출력
+   - 수량 변경 기능
+   - 합계 기능
+   - 장바구니 멀티 삭제 기능
+
+주문 기능 전체
+
+결제 기능 전체

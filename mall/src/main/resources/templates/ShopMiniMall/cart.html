@@ -58,7 +58,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Product Number</th>
+                                <th>Cart Number</th>
                                 <th>Brand</th>
                                 <th>Name</th>
                                 <th>Price</th>
@@ -67,7 +67,7 @@
                         </thead>
                         <tbody>
                             <tr th:each="cart : ${data}">
-                                <td th:text="|${cart.productNum}|"></td>
+                                <td th:text="|${cart.cartNum}|"></td>
                                 <td th:text="|${cart.brand}|"></td>
                                 <td th:text="|${cart.name}|"></td>
                                 <td th:text="|${cart.price}원|"></td>

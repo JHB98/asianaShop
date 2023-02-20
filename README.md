@@ -256,9 +256,6 @@ erDiagram
 
 ## :disappointed_relieved: 미구현 항목
 
-회원 등록 기능
-   - 아이디 중복 체크
-
 장바구니 기능
    - check box 출력
    - 수량 변경 기능

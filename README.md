@@ -255,7 +255,9 @@ erDiagram
 ```
 
 ## :disappointed_relieved: 미구현 항목
-
+상품 목록 기능
+   - 페이지네이션
+   
 장바구니 기능
    - check box 출력
    - 수량 변경 기능

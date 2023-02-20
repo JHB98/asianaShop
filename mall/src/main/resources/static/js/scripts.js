@@ -62,3 +62,16 @@ function execDaumPostcode () {
         }
     }).open();
 }
+
+function passwordCheck () {
+    var pwd = document.getElementById('pwd').value;
+    var checkPassword = document.getElementById('checkPassword').value;
+    if (pwd != checkPassword) {
+        document.getElementById("passwordAlert").innerHTML = "비밀번호가 일치 하지 않습니다";
+        document.getElementById('passwordAlert').style.color = 'red';
+    } else {
+        document.getElementById("passwordAlert").innerHTML = "비밀번호가 일치합니다.";
+        document.getElementById('passwordAlert').style.color = 'blue';
+        return true;
+    }
+}

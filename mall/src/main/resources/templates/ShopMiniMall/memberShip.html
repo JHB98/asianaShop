@@ -58,6 +58,12 @@
                 <span th:style="${'color: red; font-size:11px;'}" th:text="${valid_pwd}"></span>
             </div>
             <div class="form-group">
+                <label th:for="pwd">* 비밀번호 확인</label>
+                <input type="password" id="checkPassword" class="form-control" oninput="passwordCheck()"
+                    placeholder="비밀번호 확인">
+                <span id="passwordAlert"></span>
+            </div>
+            <div class="form-group">
                 <label th:for="name">이름</label>
                 <input type="text" th:field="*{name}" class="form-control" placeholder="이름">
             </div>

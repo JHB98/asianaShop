@@ -7,4 +7,6 @@ public interface CartService {
     List<Cart> getCart(String userId);
 
     void postCart(Cart cart);
+
+    void deleteCart(int cartNum);
 }

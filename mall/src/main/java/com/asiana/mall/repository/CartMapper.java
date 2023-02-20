@@ -10,4 +10,6 @@ public interface CartMapper {
     List<Cart> selectCart(@Param("userId") String userId);
 
     void insertCart(@Param("cart") Cart cart);
+
+    void deleteCart(@Param("cartNum") int cartNum);
 }

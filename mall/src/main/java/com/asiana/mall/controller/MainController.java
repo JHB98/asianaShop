@@ -118,12 +118,13 @@ public class MainController {
 		return mv;
 	}
 
-	@DeleteMapping("/ShopMiniMall/cart/{cartNum}") // delete 넘어오는거 까지
+	@DeleteMapping("/ShopMiniMall/cart/{cartNum}")
 	public ModelAndView deleteCart(ModelAndView mv, @AuthenticationPrincipal User userInfo,
 			@PathVariable("cartNum") int cartNum) {
-		System.out.println(cartNum);
-		mv.setViewName("/ShopMiniMall/main");
-		// mv.addObject("data", cartService.getCart(userInfo.getUsername()));
+		cartService.deleteCart(cartNum);
+		mv.setViewName("/ShopMiniMall/cart");
+		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
+
 		return mv;
 	}
 }

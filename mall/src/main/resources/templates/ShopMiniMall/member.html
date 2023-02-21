@@ -54,9 +54,11 @@
                 <label th:for="pwd">비밀번호</label>
                 <input type="password" th:field="*{pwd}" class="form-control" placeholder="비밀번호">
             </div>
+            <div th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null">
+                <span th:style="${'color: red; font-size:11px;'}"
+                    th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span>
+            </div>
             <button type="submit" class="btn btn-outline-dark" style="margin-top : 15px">로그인</button>
-            <p>Your login attempt was not successful due to <br />
-                ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</p>
         </form>
         <form th:action="@{/ShopMiniMall/main}" method="get" class="d-flex">
             <button class="btn btn-outline-dark" type="submit">

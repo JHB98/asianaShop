@@ -60,11 +60,11 @@ public class MainController {
 
 	@GetMapping("/ShopMiniMall/member/{id}")
 	@ResponseBody
-	public String getMemberById(@PathVariable("id") String id, Member member) {
+	public boolean getMemberById(@PathVariable("id") String id, Member member) {
 		if (memberService.getMemberById(id) == null) {
-			return "아이디 사용 가능";
+			return true;
 		}
-		return "아이디 사용 불가";
+		return false;
 	}
 
 	@GetMapping("/ShopMiniMall/MemberUIServlet")
@@ -79,7 +79,12 @@ public class MainController {
 			// 유효성 통과 못한 필드와 메시지를 핸들링
 			Map<String, String> validatorResult = memberService.validateHandling(errors);
 			for (String key : validatorResult.keySet()) {
-				mv.addObject(key, validatorResult.get(key));
+				if (key.equals("valid_pwd") || key.equals("valid_pwdCheck")) {
+					mv.addObject("valid_idCheck", "아이디 중복 확인을 해주세요.");
+					mv.addObject(key, validatorResult.get(key));
+				} else {
+					mv.addObject(key, validatorResult.get(key));
+				}
 			}
 			mv.setViewName("/ShopMiniMall/memberShip");
 			return mv;

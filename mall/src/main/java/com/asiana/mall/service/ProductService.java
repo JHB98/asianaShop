@@ -1,6 +1,8 @@
 package com.asiana.mall.service;
 
 import java.util.List;
+
+import com.asiana.mall.vo.Page;
 import com.asiana.mall.vo.Product;
 
 public interface ProductService {
@@ -10,5 +12,7 @@ public interface ProductService {
     Product getProductById(int number);
 
     List<Product> getProductByCategory(String category);
+
+    Page productList(int curPage);
 
 }

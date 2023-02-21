@@ -31,12 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
-<<<<<<< HEAD
 
 ### application properties ###
 /src/main/resources/application.properties
 
 ### pom xml ###
-\pom.xml
-=======
->>>>>>> 8fc59b3d79189cd31132a25f52c32ea5583ed014
+pom.xml

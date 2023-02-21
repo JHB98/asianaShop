@@ -15,14 +15,42 @@ function getProductByCategory (category) {
     });
 }
 
-function idCheck () {
+function idChecking () {
+    document.getElementById("valid_id").innerHTML = null;
+    if (document.getElementById("valid_idCheck") != null) {
+        document.getElementById("valid_idCheck").innerHTML = null;
+    }
     id = document.getElementById('id').value;
     $.ajax({
         url: "/ShopMiniMall/member/" + id,
         type: "GET",
     }).done(function (result) {
-        document.getElementById("idAlert").innerHTML = result;
+        if (!result || id == '' || id == null) {
+            document.getElementById("idAlert").innerHTML = "아이디 사용 불가";
+            document.getElementById('idAlert').style.color = 'red';
+            document.getElementById("idCheck").value = false;
+        } else {
+            document.getElementById("idAlert").innerHTML = "아이디 사용 가능";
+            document.getElementById('idAlert').style.color = 'blue';
+            document.getElementById("idCheck").value = true;
+        }
     });
+}
+
+function passwordCheck () {
+    document.getElementById("valid_pwdCheck").innerHTML = null;
+    var pwd = document.getElementById('pwd').value;
+    var checkPassword = document.getElementById('checkPassword').value;
+    if (pwd != checkPassword) {
+        document.getElementById("passwordAlert").innerHTML = "비밀번호가 일치 하지 않습니다";
+        document.getElementById('passwordAlert').style.color = 'red';
+        document.getElementById("pwdCheck").value = false;
+    } else {
+        document.getElementById("passwordAlert").innerHTML = "비밀번호가 일치합니다.";
+        document.getElementById('passwordAlert').style.color = 'blue';
+        document.getElementById("pwdCheck").value = true;
+        return true;
+    }
 }
 
 function execDaumPostcode () {
@@ -71,17 +99,4 @@ function execDaumPostcode () {
             document.getElementById("address").focus();
         }
     }).open();
-}
-
-function passwordCheck () {
-    var pwd = document.getElementById('pwd').value;
-    var checkPassword = document.getElementById('checkPassword').value;
-    if (pwd != checkPassword) {
-        document.getElementById("passwordAlert").innerHTML = "비밀번호가 일치 하지 않습니다";
-        document.getElementById('passwordAlert').style.color = 'red';
-    } else {
-        document.getElementById("passwordAlert").innerHTML = "비밀번호가 일치합니다.";
-        document.getElementById('passwordAlert').style.color = 'blue';
-        return true;
-    }
 }

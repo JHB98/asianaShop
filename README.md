@@ -1,5 +1,5 @@
 ## :lock: Team Code Convention
-
+깃 ㅂ브랜치 테스트
 ### Git Commit Message
 
 | 커밋명   | 내용                                        |

@@ -37,3 +37,9 @@ build/
 
 ### pom xml ###
 \pom.xml
+application.properties
+pom.xml
+.settings
+.project
+
+

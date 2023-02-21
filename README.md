@@ -1,5 +1,4 @@
 ## :lock: Team Code Convention
-
 ### Git Commit Message
 
 | 커밋명   | 내용                                        |

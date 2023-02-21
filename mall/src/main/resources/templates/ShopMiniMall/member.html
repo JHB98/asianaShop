@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>ASIANA Online Shop</title>
+    <title>아시아나 면세점</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
     <!-- Bootstrap icons-->
@@ -21,7 +21,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" th:href="@{/ShopMiniMall/main}">ASIANA Online Shop</a>
+            <a class="navbar-brand" th:href="@{/ShopMiniMall/main}">아시아나 면세점</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -53,10 +53,6 @@
             <div class="form-group">
                 <label th:for="pwd">비밀번호</label>
                 <input type="password" th:field="*{pwd}" class="form-control" placeholder="비밀번호">
-            </div>
-            <div th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null">
-                <span th:style="${'color: red; font-size:11px;'}"
-                    th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span>
             </div>
             <button type="submit" class="btn btn-outline-dark" style="margin-top : 15px">로그인</button>
         </form>

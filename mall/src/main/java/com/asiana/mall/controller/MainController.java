@@ -145,4 +145,13 @@ public class MainController {
 
 		return mv;
 	}
+
+	@GetMapping("/ShopMiniMall/payConfirm")
+	public ModelAndView getpayConfirm(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
+		mv.setViewName("/ShopMiniMall/payConfirm");
+		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
+		return mv;
+	}
+
+
 }

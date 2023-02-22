@@ -17,7 +17,12 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<Cart> getCart(String userId) {
-        return cartMapper.selectCart(userId);
+
+        List<Cart> cartList = cartMapper.selectCart(userId);
+        for (Cart refCart : cartList) {
+            refCart.setTotalPrice(refCart.getPrice() * refCart.getAmount());
+        }
+        return cartList;
     }
 
     @Override

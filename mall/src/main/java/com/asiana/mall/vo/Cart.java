@@ -14,4 +14,5 @@ public class Cart {
     private int price;
     private String category;
     private int amount;
+    private int totalPrice;
 }

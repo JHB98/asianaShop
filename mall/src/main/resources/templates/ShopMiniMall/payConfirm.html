@@ -27,7 +27,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-=            <a class="navbar-brand" th:href="@{/ShopMiniMall/main}">ASIANA Duty Free Shop</a>
+            <a class="navbar-brand" th:href="@{/ShopMiniMall/main}">ASIANA Duty Free Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -58,11 +58,12 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h2 class="m-0 font-weight-bold">장바구니</h2>
+                <h2 class="m-0 font-weight-bold">주문 및 수령 정보 확인</h2>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <p>주문 및 결제 내역</p>
                         <thead>
                             <tr>
                                 <th>Cart Number</th>
@@ -79,38 +80,36 @@
                                 <td th:text="|${cart.name}|"></td>
                                 <td th:text="|${cart.price}원|"></td>
                                 <td th:text="|${cart.amount}|"></td>
-                                <td>
-                                    <form role="form"
-                                        th:action="@{/ShopMiniMall/cart/{cartNum}(cartNum=${cart.cartNum})}"
-                                        th:method="delete" class="d-flex">
-                                        <button class="btn btn-outline-dark" type="submit">
-                                            삭제
-                                        </button>
-                                    </form>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <p>수령 정보</p>
+                            <thead>
+                                <tr>
+                                    <th>Cart Number</th>
+                                    <th>Brand</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="cart : ${data}">
+                                    <td th:text="|${cart.cartNum}|"></td>
+                                    <td th:text="|${cart.brand}|"></td>
+                                    <td th:text="|${cart.name}|"></td>
+                                    <td th:text="|${cart.price}원|"></td>
+                                    <td th:text="|${cart.amount}|"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                 </div>
-                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get"
-                    class="form-check-inline">
-                    <button onclick="requestPay()" class="btn btn-outline-dark" type="submit">
-                        전체 구매
-                    </button>
-                </form>
-                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get"
+                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/main}" method="get"
                     class="form-check-inline">
                     <button class="btn btn-outline-dark" type="submit">
-                        선택 구매
-                    </button>
-                </form>
-                    <button onclick="requestPay()" class="btn btn-outline-dark" type="submit">
-                        결제 진행
-                    </button>
-                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/payConfirm}" method="get"
-                    class="form-check-inline">
-                    <button class="btn btn-outline-dark" type="submit">
-                        결제확인 페이지
+                        메인으로
                     </button>
                 </form>
             </div>
@@ -149,11 +148,9 @@
                 if (rsp.success) {
                     console.log("성공");
                     console.log(rsp);
-                    location.href = 'payConfirm';   // 성공 시 넘어갈 페이지
                 } else {
                     console.log("실패");
                     console.log(rsp);
-                    location.href = 'cart'; // 실패 시 넘어갈 페이지
                 }
             });
             console.log("진행3");

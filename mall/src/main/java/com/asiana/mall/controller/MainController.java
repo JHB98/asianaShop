@@ -43,13 +43,13 @@ public class MainController {
 		return new BCryptPasswordEncoder().encode(pwd);
 	}
 
-	@GetMapping("/ShopMiniMall/main")
-	public ModelAndView getMain(Product product, ModelAndView mv, Cart cart) {
-		mv.setViewName("/ShopMiniMall/main");
-		mv.addObject("cart", cart);
-		mv.addObject("data", productService.getProduct(product));
-		return mv;
-	}
+//	@GetMapping("/ShopMiniMall/main")
+//	public ModelAndView getMain(Product product, ModelAndView mv, Cart cart) {
+//		mv.setViewName("/ShopMiniMall/main");
+//		mv.addObject("cart", cart);
+//		mv.addObject("data", productService.getProduct(product));
+//		return mv;
+//	}
 
 	@GetMapping("/ShopMiniMall/member")
 	public ModelAndView getMember(Member member, ModelAndView mv) {
@@ -98,14 +98,14 @@ public class MainController {
 		return mv;
 	}
 
-	@GetMapping("/ShopMiniMall/product/{number}")
-	public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart) {
-		mv.setViewName("/ShopMiniMall/product");
-		mv.addObject("cart", cart);
-		mv.addObject("data", productService.getProductById(number));
-
-		return mv;
-	}
+//	@GetMapping("/ShopMiniMall/product/{number}")
+//	public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart) {
+//		mv.setViewName("/ShopMiniMall/product");
+//		mv.addObject("cart", cart);
+//		mv.addObject("data", productService.getProductById(number));
+//
+//		return mv;
+//	}
 
 	@GetMapping("/ShopMiniMall/product/category/{category}")
 	public ModelAndView getProductByCategory(ModelAndView mv, @PathVariable("category") String category) {

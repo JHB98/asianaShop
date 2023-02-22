@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
@@ -82,10 +83,12 @@
         <div class="container px-4 px-lg-5 mt-5">
             <div id="resultProduct" th:fragment="resultProduct"
                 class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <th:block th:each="product : ${data}">
+                <th:block th:each="product : ${Page.list}">
                     <div class="col mb-5">
                         <div class="card h-100">
+                            <!-- page -->
                             <!-- Product image-->
+
                             <a th:href="@{/ShopMiniMall/product/{number}(number=${product.number})}"><img
                                     class="card-img-top" th:src="|/img/${product.number}.jpg|" alt="..." /></a>
                             <!-- Product details-->
@@ -105,6 +108,7 @@
                                     <div th:text="|${product.price}원|"></div>
                                 </div>
                             </div>
+
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
@@ -123,9 +127,27 @@
                         </div>
                     </div>
                 </th:block>
+
             </div>
         </div>
+        <div style="text-align:center; ">
+        <tr >
+            <td colspan="6">
+                <th:block th:with="perPage=${Page.perPage}, totalPage=${Page.totalPage}, curPage=${Page.curPage}">
+                    <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
+                        <span th:if="${i==curPage}">[[${i}]]</span>
+                        <span th:if="${i!=curPage}"><a th:href="@{/ShopMiniMall/main(curPage=${i})}">[[${i}]]</a></span>
+
+                    </th:block>
+
+                </th:block>
+
+            </td>
+        </tr>
+        </div>
     </section>
+
+
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">

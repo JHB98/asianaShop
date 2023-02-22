@@ -1,15 +1,15 @@
-
-function flightSelectCheck() {
-	if ($(':radio[name="fligthRadioButton"]:checked').length < 1) {
-		alert("항공편을 선택해주세요.");
-	} else {
-		$.ajax({
-			url : "/ShopMiniMall/",
-			type: "get",
-			data : 
-		})
-	}
-}
+//
+//function flightSelectCheck() {
+//	if ($(':radio[name="fligthRadioButton"]:checked').length < 1) {
+//		alert("항공편을 선택해주세요.");
+//	} else {
+//		$.ajax({
+//			url : "/ShopMiniMall/",
+//			type: "get",
+//			data : 
+//		})
+//	}
+//}
 
 function getFlightList() {
 	let arrival = $("#arrival").get(0).value

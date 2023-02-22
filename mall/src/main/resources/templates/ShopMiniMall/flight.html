@@ -17,10 +17,16 @@
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link th:href="@{/css/styles.css}" rel="stylesheet" />
+<!--결제기능-->
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+
 </head>
-<script>
-	
-</script>
+
+
 <body>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -119,7 +125,9 @@
 						</tr>
 					</table>
 				</div>
-				<button onclick="validityCheck()" >결제 페이지로 이동</button>
+				 <button onclick="requestPay()" class="btn btn-outline-dark" type="submit">
+			                        결제 진행
+                   </button>
 		</div>
 	</section>
 	<!-- Footer-->
@@ -135,6 +143,39 @@
 	<!-- Core theme JS-->
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script th:src="@{/js/Flight/flight.js}"></script>
+	 <script>
+        var IMP = window.IMP; 
+        IMP.init("imp11174960"); 
+        console.log("진행1");
+        function requestPay() {
+            console.log("진행10");
+            IMP.request_pay({
+                pg : 'kcp.{상점ID}',
+                pay_method : 'card',
+                merchant_uid: "57008833-33004", 
+                name : '의류',
+                amount : 10,
+                buyer_email : 'Iamport@chai.finance',
+                buyer_name : '포트원 기술지원팀',
+                buyer_tel : '010-1234-5678',
+                buyer_addr : '서울특별시 강남구 삼성동',
+                buyer_postcode : '123-456'
+            }, 
+            function (rsp) { // callback
+                console.log(rsp);
+                if (rsp.success) {
+                    console.log("성공");
+                    console.log(rsp);
+                    location.href = 'payConfirm';   // 성공 시 넘어갈 페이지
+                } else {
+                    console.log("실패");
+                    console.log(rsp);
+                    location.href = 'cart'; // 실패 시 넘어갈 페이지
+                }
+            });
+            console.log("진행3");
+        }
+    </script>
 </body>
 
 </html>

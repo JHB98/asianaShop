@@ -22,6 +22,8 @@ import com.asiana.mall.vo.Member;
 import com.asiana.mall.vo.Message;
 import com.asiana.mall.vo.Product;
 import com.asiana.mall.vo.Cart;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -43,13 +45,13 @@ public class MainController {
 		return new BCryptPasswordEncoder().encode(pwd);
 	}
 
-//	@GetMapping("/ShopMiniMall/main")
-//	public ModelAndView getMain(Product product, ModelAndView mv, Cart cart) {
-//		mv.setViewName("/ShopMiniMall/main");
-//		mv.addObject("cart", cart);
-//		mv.addObject("data", productService.getProduct(product));
-//		return mv;
-//	}
+	// @GetMapping("/ShopMiniMall/main")
+	// public ModelAndView getMain(Product product, ModelAndView mv, Cart cart) {
+	// mv.setViewName("/ShopMiniMall/main");
+	// mv.addObject("cart", cart);
+	// mv.addObject("data", productService.getProduct(product));
+	// return mv;
+	// }
 
 	@GetMapping("/ShopMiniMall/member")
 	public ModelAndView getMember(Member member, ModelAndView mv) {
@@ -98,14 +100,15 @@ public class MainController {
 		return mv;
 	}
 
-//	@GetMapping("/ShopMiniMall/product/{number}")
-//	public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart) {
-//		mv.setViewName("/ShopMiniMall/product");
-//		mv.addObject("cart", cart);
-//		mv.addObject("data", productService.getProductById(number));
-//
-//		return mv;
-//	}
+	// @GetMapping("/ShopMiniMall/product/{number}")
+	// public ModelAndView getProductById(@PathVariable("number") int number,
+	// ModelAndView mv, Cart cart) {
+	// mv.setViewName("/ShopMiniMall/product");
+	// mv.addObject("cart", cart);
+	// mv.addObject("data", productService.getProductById(number));
+	//
+	// return mv;
+	// }
 
 	@GetMapping("/ShopMiniMall/product/category/{category}")
 	public ModelAndView getProductByCategory(ModelAndView mv, @PathVariable("category") String category) {
@@ -118,7 +121,11 @@ public class MainController {
 	@GetMapping("/ShopMiniMall/cart")
 	public ModelAndView getCart(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
 		mv.setViewName("/ShopMiniMall/cart");
-		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
+		List<Cart> cartList = cartService.getCart(userInfo.getUsername());
+		for (Cart refCart : cartList) {
+			refCart.setTotalPrice(refCart.getPrice() * refCart.getAmount());
+		}
+		mv.addObject("data", cartList);
 		return mv;
 	}
 

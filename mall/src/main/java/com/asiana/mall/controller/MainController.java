@@ -121,11 +121,7 @@ public class MainController {
 	@GetMapping("/ShopMiniMall/cart")
 	public ModelAndView getCart(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
 		mv.setViewName("/ShopMiniMall/cart");
-		List<Cart> cartList = cartService.getCart(userInfo.getUsername());
-		for (Cart refCart : cartList) {
-			refCart.setTotalPrice(refCart.getPrice() * refCart.getAmount());
-		}
-		mv.addObject("data", cartList);
+		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
 		return mv;
 	}
 

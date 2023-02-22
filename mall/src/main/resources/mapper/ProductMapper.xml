@@ -17,12 +17,12 @@
 			SELECT * FROM product WHERE category = #{category}
     </select>
 
-    <select id="totalRecord" resultType="int">
+    <select id="selectTotalRecord" resultType="int">
         select count(*)
         from product
     </select>
 
-    <select id="productList" resultType="Product">
+    <select id="selectProductList" resultType="Product">
         select number, brand, name, price, category
         from product
         order by number desc

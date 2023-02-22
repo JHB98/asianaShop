@@ -19,33 +19,36 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/main") // 매핑값인 main로 view인 main.html을 유추한다
-    public @ModelAttribute("Page") Page list(@RequestParam(required=false, defaultValue = "1") int curPage) throws Exception{
+    public @ModelAttribute("Page") Page list(@RequestParam(required = false, defaultValue = "1") int curPage, Page page)
+            throws Exception {
 
-        Page pageDTO = productService.productList(curPage); // Model
+        Page pageDTO = productService.getProductList(curPage, page); // Model
         return pageDTO; // Model
     }
 
     @GetMapping("/ShopMiniMall/main")
-    public ModelAndView getMain(@RequestParam(required=false, defaultValue = "1") int curPage, Product product, ModelAndView mv, Cart cart) {
+    public ModelAndView getMain(@RequestParam(required = false, defaultValue = "1") int curPage, Product product,
+            ModelAndView mv, Cart cart, Page page) {
         mv.setViewName("/ShopMiniMall/main");
         mv.addObject("cart", cart);
-        mv.addObject("Page", productService.productList(curPage));
-//        return pageDTO; // Model;
+        mv.addObject("Page", productService.getProductList(curPage, page));
+        // return pageDTO; // Model;
         return mv;
     }
-//    @GetMapping("/ShopMiniMall/main")
-//    public ModelAndView getMain(Product product, ModelAndView mv, Cart cart) {
-//        mv.setViewName("/ShopMiniMall/main");
-//        mv.addObject("cart", cart);
-//        mv.addObject("data", productService.getProduct(product));
-//        return mv;
-//    }
-    @GetMapping("/ShopMiniMall/product/{number}")
-	public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart) {
-		mv.setViewName("/ShopMiniMall/product");
-		mv.addObject("cart", cart);
-		mv.addObject("data", productService.getProductById(number));
 
-		return mv;
-	}
+    // @GetMapping("/ShopMiniMall/main")
+    // public ModelAndView getMain(Product product, ModelAndView mv, Cart cart) {
+    // mv.setViewName("/ShopMiniMall/main");
+    // mv.addObject("cart", cart);
+    // mv.addObject("data", productService.getProduct(product));
+    // return mv;
+    // }
+    @GetMapping("/ShopMiniMall/product/{number}")
+    public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart) {
+        mv.setViewName("/ShopMiniMall/product");
+        mv.addObject("cart", cart);
+        mv.addObject("data", productService.getProductById(number));
+
+        return mv;
+    }
 }

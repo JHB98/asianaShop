@@ -12,7 +12,8 @@ public interface ProductMapper {
     Product selectProductById(@Param("number") int number);
 
     List<Product> selectProductByCategory(@Param("category") String category);
-    int totalRecord();
 
-    List<Product> productList();
+    int selectTotalRecord();
+
+    List<Product> selectProductList();
 }

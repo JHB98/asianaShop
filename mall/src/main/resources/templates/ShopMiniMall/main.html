@@ -127,24 +127,20 @@
                         </div>
                     </div>
                 </th:block>
-
             </div>
         </div>
-        <div style="text-align:center; ">
-        <tr >
-            <td colspan="6">
-                <th:block th:with="perPage=${Page.perPage}, totalPage=${Page.totalPage}, curPage=${Page.curPage}">
-                    <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
-                        <span th:if="${i==curPage}">[[${i}]]</span>
-                        <span th:if="${i!=curPage}"><a th:href="@{/ShopMiniMall/main(curPage=${i})}">[[${i}]]</a></span>
 
-                    </th:block>
-
+        <div class="text-center">
+            <th:block th:with="perPage=${Page.perPage}, totalPage=${Page.totalPage}, curPage=${Page.curPage}">
+                <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
+                    <button class="btn btn-outline-dark mt-auto" th:if="${i==curPage}">[[${i}]]</button>
+                    <button class="btn btn-outline-dark mt-auto"
+                        th:onclick="|location.href='@{/ShopMiniMall/main(curPage=${i})}'|"
+                        th:if="${i!=curPage}">[[${i}]]</button>
                 </th:block>
-
-            </td>
-        </tr>
+            </th:block>
         </div>
+
     </section>
 
 

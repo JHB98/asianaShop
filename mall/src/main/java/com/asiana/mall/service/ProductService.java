@@ -13,6 +13,6 @@ public interface ProductService {
 
     List<Product> getProductByCategory(String category);
 
-    Page productList(int curPage);
+    Page getProductList(int curPage, Page page);
 
 }

@@ -169,6 +169,93 @@ VALUES
    39000,
    'BOTTOM'
 );
+
+INSERT INTO product
+VALUES
+(
+   215415,
+   '드로우 핏',
+   '터틀넥 니트 티셔츠',
+   43900,
+   'TOP'
+),
+(
+   692982,
+   'MainBooth',
+   'Traveler Oversized Sweater',
+   53400,
+   'TOP'
+),
+(
+   80560,
+   '가니송',
+   '보우 셔링 원피스',
+   159600,
+   'DRESS'
+),
+(
+   180484,
+   '마르디 메르크디',
+   'MAXI DRESS V NECK STRIPE_GREY',
+   175750,
+   'DRESS'
+),
+(
+   1508048,
+   '도프제이슨',
+   '오버핏 비건레더 싱글 자켓',
+   89000,
+   'OUTER'
+),
+(
+   6812391,
+   '코드그라피',
+   'CGP아치 로고 후드 집업',
+   35800,
+   'OUTER'
+),
+(
+   48701498,
+   '무신사',
+   '스탠다드 스트레이트 데님 팬츠',
+   44790,
+   'BOTTOM'
+),
+(
+   91870490,
+   '유니폼 브릿지',
+   '1960 sweatshirts navy',
+   58500,
+   'TOP'
+),
+(  
+   7980980, 
+   '스파오',
+   '베이직 퍼플리스 집업_SPFZC4TU01',
+   14900,
+   'OUTER'
+),
+( 
+   4088049,
+   '제로',
+   'Classic Sweat Pants [Grey]',
+   35100,
+   'BOTTOM'
+),
+( 
+   65924592,
+   '제이마크뉴욕',
+   'Single button collar neck dress - Navy',
+   115200,
+   'DRESS'
+),
+(
+   605940780,
+   '페이탈리즘',
+   '#0214 Moderation indigo straight fit',
+   59000,
+   'BOTTOM'
+);
 ```
 #### Create# Cart Table
 

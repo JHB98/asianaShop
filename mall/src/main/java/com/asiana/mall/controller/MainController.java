@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -146,12 +148,16 @@ public class MainController {
 		return mv;
 	}
 
+
+	@PutMapping("/ShopMiniMall/cart/{cartNum}")
+	public void updateCart(@RequestParam("amount") int amount, @PathVariable("cartNum") int cartNum) {
+		cartService.putCartAmount(cartNum, amount);
+	}
+
 	@GetMapping("/ShopMiniMall/payConfirm")
 	public ModelAndView getpayConfirm(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
 		mv.setViewName("/ShopMiniMall/payConfirm");
 		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
 		return mv;
 	}
-
-
 }

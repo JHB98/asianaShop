@@ -12,4 +12,6 @@ public interface CartMapper {
     void insertCart(@Param("cart") Cart cart);
 
     void deleteCart(@Param("cartNum") int cartNum);
+
+    void updateCartAmount(@Param("cartNum") int cartNum, @Param("amount") int amount);
 }

@@ -142,7 +142,7 @@
             <th:block
                 th:with="perPage=${Page.perPage}, totalPage=${Page.totalPage}, curPage=${Page.curPage}, category=${Page.list.get(0).category}">
                 <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
-                    <button class="btn btn-outline-dark mt-auto" th:if="${i==curPage}">[[${i}]]</button>
+                    <button style="background-color : #6E6E6E" class="btn btn-outline-dark mt-auto" th:if="${i==curPage}">[[${i}]]</button>
                     <button class="btn btn-outline-dark mt-auto"
                         th:onclick="|location.href='@{/ShopMiniMall/product/category/{category}/{curPage}(category=${category}, curPage=${i})}'|"
                         th:if="${i!=curPage}">[[${i}]]</button>

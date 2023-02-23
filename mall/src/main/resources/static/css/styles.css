@@ -11286,3 +11286,49 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+.animated-text{
+  color: #8A0808;
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  padding: 0 20px;
+  height: 60px;
+  overflow: hidden;
+}
+
+.line{
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 20px;
+  line-height: 60px;
+}
+
+.line:first-child{
+  animation: anim 12s infinite;
+}
+
+@keyframes anim {
+  0%{
+    margin-top : 0;
+  }
+  16%{
+    margin-top : -60px;
+  }
+  33%{
+    margin-top : -120px;
+  }
+  50%{
+    margin-top : -180px;
+  }
+  66%{
+    margin-top : -120px;
+  }
+  82%{
+    margin-top : -60px;
+  }
+  100%{
+    margin-top : 0;
+  }
+}

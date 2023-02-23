@@ -64,23 +64,16 @@
                         <span th:text="|${data.price}원|"></span>
                     </div>
                     <div sec:authorize="isAuthenticated()" class="d-flex">
-                        <form role="form" sec:authorize="isAuthenticated()" 
-                        	th:action="@{/ShopMiniMall/cart}"
-                            th:object="${cart}" method="post">
+                        <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/purchase}" method="get">
                             <input class="form-control text-center me-3" id="amount" name="amount" type="number"
                                 th:value="1" style="max-width: 3rem" />
-                            <input type="hidden" th:value="${data.number}" id="productNum" name="productNum"
-                                class="form-control">
 
                             <p th:text="|남은 수량 : ${data.count}개|"></p> <!--count 넣기-->
 
                             <button class="btn btn-outline-dark" style="margin-top : 15px" th:onclick="createCartItem([[${data}]])" type="button">
                                 <i class="bi-cart-fill me-1"></i>
-                                Add to cart
+                                장바구니 넣기 
                             </button>
-                        </form>
-                        <form role="form" sec:authorize="isAuthenticated()" 
-	                        th:action="@{/ShopMiniMall/purchase}" method="get">
 	                        <input type="hidden" th:value="${data.number}" id="number" name="number" class="form-control">                            
                             <button class="btn btn-outline-dark"  style="margin-top : 15px" type="submit">
                                 <i class="bi-cart-fill me-1"></i>

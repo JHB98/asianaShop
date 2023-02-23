@@ -27,6 +27,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/ShopMiniMall/MemberUIServlet",
                         "/ShopMiniMall/membership",
                         "/ShopMiniMall/Message",
+                        "/ShopMiniMall/flight",
                         "/ShopMiniMall/product/{number}",
                         "/ShopMiniMall/product/category/{category}",
                         "/ShopMiniMall/member/{id}")

@@ -148,8 +148,16 @@ public class MainController {
 		return mv;
 	}
 
+
 	@PutMapping("/ShopMiniMall/cart/{cartNum}")
 	public void updateCart(@RequestParam("amount") int amount, @PathVariable("cartNum") int cartNum) {
 		cartService.putCartAmount(cartNum, amount);
+	}
+
+	@GetMapping("/ShopMiniMall/payConfirm")
+	public ModelAndView getpayConfirm(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
+		mv.setViewName("/ShopMiniMall/payConfirm");
+		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
+		return mv;
 	}
 }

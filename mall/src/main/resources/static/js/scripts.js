@@ -8,7 +8,6 @@
 function updateCartAmount (index) {
     cartAmount = document.getElementById("cartAmount" + index).value
     cartNum = document.getElementById("cartNum" + index).innerText
-
     $.ajax({
         url: "/ShopMiniMall/cart/" + cartNum,
         type: "PUT",

@@ -149,6 +149,16 @@ public class MainController {
 		return mv;
 	}
 
+	@DeleteMapping("/ShopMiniMall/cart")
+	public void deleteCartById(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
+		System.out.println("ddd");
+		cartService.deleteCartById(userInfo.getUsername());
+		// mv.setViewName("/ShopMiniMall/cart");
+		// mv.addObject("data", cartService.getCart(userInfo.getUsername()));
+
+		// return mv;
+	}
+
 	@PutMapping("/ShopMiniMall/cart/{cartNum}")
 	public @ResponseBody void updateCart(@RequestParam("amount") int amount, @PathVariable("cartNum") int cartNum) {
 		cartService.putCartAmount(cartNum, amount);

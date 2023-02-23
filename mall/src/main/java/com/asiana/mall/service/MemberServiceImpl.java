@@ -44,4 +44,9 @@ public class MemberServiceImpl implements MemberService {
     public Member getMemberById(String id) {
         return memberMapper.selectMemberById(id);
     }
+
+    @Override
+    public void putMember(String id, Member member) {
+        memberMapper.updateMember(id, member);
+    }
 }

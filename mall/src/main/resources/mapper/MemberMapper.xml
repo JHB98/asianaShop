@@ -18,4 +18,10 @@
         VALUES (#{member.id},#{member.pwd},#{member.name},#{member.address},#{member.phone},#{member.email})
     </insert>
 
+    <update id="updateMember">
+        UPDATE members
+        SET (name, address, phone, email) = (#{member.name},#{member.address},#{member.phone},#{member.email})
+        WHERE id = #{id}
+    </update>
+
 </mapper>

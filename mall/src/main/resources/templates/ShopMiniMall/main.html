@@ -40,7 +40,8 @@
                         </form>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get" class="d-flex">
+                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get"
+                            class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">
                                 마이페이지
                             </button>
@@ -147,7 +148,7 @@
         <div class="text-center">
             <th:block th:with="perPage=${Page.perPage}, totalPage=${Page.totalPage}, curPage=${Page.curPage}">
                 <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
-                    <button style="background-color : #6E6E6E" class="btn btn-outline-dark mt-auto" th:if="${i==curPage}">[[${i}]]</button>
+                    <button class="btn btn-outline-dark mt-auto" th:if="${i==curPage}">[[${i}]]</button>
                     <button class="btn btn-outline-dark mt-auto"
                         th:onclick="|location.href='@{/ShopMiniMall/main(curPage=${i})}'|"
                         th:if="${i!=curPage}">[[${i}]]</button>

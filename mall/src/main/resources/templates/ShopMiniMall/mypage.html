@@ -44,7 +44,8 @@
                         </form>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get" class="d-flex">
+                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get"
+                            class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">
                                 마이페이지
                             </button>
@@ -88,8 +89,6 @@
                                 <td th:text="|${member.email}|"></td>
                                 <td width="150">
                                     <div class="input-group">
-                                        <input type="number" class="form-control bg-light small" aria-label="Search"
-                                            aria-describedby="basic-addon2" th:value="${cart.amount}">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-dark" type="button">
                                                 수정

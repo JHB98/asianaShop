@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asiana.mall.repository.PurchaseMapper">
+	<select id="selectProductListByIdList" parameterType="arraylist" resultType="hashmap">
+		SELECT * FROM PRODUCT
+		<where>
+		 NUMBER IN
+			<foreach item="item"  collection="list" open="(" separator="," close=")" >
+				${item}
+	    	</foreach>
+	    	</where>
+	</select>
+</mapper>
+ 

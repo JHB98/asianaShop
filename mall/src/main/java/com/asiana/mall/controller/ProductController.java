@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ProductController {
-
     @Autowired
     ProductService productService;
 //    TODO: 삭제해야됨
@@ -49,10 +48,11 @@ public class ProductController {
 
 
     @GetMapping("/ShopMiniMall/product/{number}")
-    public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart) {
+    public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart, Product product) {
         mv.setViewName("/ShopMiniMall/product");
         mv.addObject("cart", cart);
         mv.addObject("data", productService.getProductById(number));
+        mv.addObject("product", product);
 
         return mv;
     }

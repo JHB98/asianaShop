@@ -14,7 +14,7 @@ public class FlightController {
 	public FlightController(FlightServiceImpl flightService) {
 		this.flightService = flightService;
 	}
-
+  
 	@GetMapping("/ShopMiniMall/flightForm")
 	public String flightForm(Flight flight) {		
 		return "/ShopMiniMall/flight";
@@ -28,5 +28,4 @@ public class FlightController {
 		mv.addObject("flightList", flightService.searchFlight(flight));
 		return mv;
 	}
-	
 }

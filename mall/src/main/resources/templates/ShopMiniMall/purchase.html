@@ -48,6 +48,7 @@
     <!-- Section-->
 
     <div class="container">
+    	<div>
     	<h2>주문 상품</h2>
     	<div id="purchaseProductsList" th:fragment="purchaseProductsList">
 	    	<table border="1">
@@ -67,19 +68,38 @@
 						</tr>
 					</table>
 		    	</div>
-
-		<h2>주문자 정보 입력</h2>
-        <form th:action="@{/ShopMiniMall/login}" method="post">
-        	
-        
-        	<input type="text" name="" >
-        </form>
-        <form th:action="@{/ShopMiniMall/main}" method="get" class="d-flex">
-            <button class="btn btn-outline-dark" type="submit">
-		                취소
-            </button>
-        </form>
-    </div>
+	    </div>
+	    </div>
+    	<div class="container px-4 px-lg-5 mt-5">
+    		<h3>항공편 정보 입력</h3>
+				<div id="searchFlight">
+					도착지 : <input type="text" id="arrival"> <br>
+					출발지 : <input type="text" id="departure"> <br>
+					탑승일 : <input type="date" id="boardingDate"><br>
+					<button onclick="getFlightList()">검색</button>
+				</div>
+				<div id="flightList" th:fragment="flightListFragment">
+					검색 결과
+					<table border="1">
+						<tr>
+							<td>  </td>
+							<td>항공편번호</td>
+							<td>도착지</td>
+							<td>출발지</td>
+							<td>탑승일</td>
+						</tr>
+						<tr th:each="flight : ${flightList}">
+							<td><input type="radio" name="fligthRadioButton"
+								th:value="${flight.flightId}"></td>
+							<td class="fligthOption" th:text="${flight.flightId}"></td>
+							<td class="fligthOption" th:text="${flight.arrival}"></td>
+							<td class="fligthOption" th:text="${flight.departure}"></td>
+							<td class="fligthOption" th:text="${flight.boardingDate}"></td>
+						</tr>
+					</table>
+				</div>
+			<button onclick="requestPay()" class="btn btn-outline-dark" type="submit">결제 진행</button>
+		</div>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">
@@ -91,6 +111,7 @@
     <!-- Core theme JS-->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script th:src="@{/js/scripts.js}"></script>
+    <script th:src="@{/js/Flight/flight.js}"></script>
 </body>
 
 </html>

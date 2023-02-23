@@ -7,7 +7,7 @@
 // Use this file to add JavaScript to your project
 function getProductByCategory (category) {
     $.ajax({
-        url: "/ShopMiniMall/product/category/" + category,
+        url: "/ShopMiniMall/product/category/" + category + "/" + curPage,
         type: "GET",
     }).done(function (result) {
         $("#resultProduct").replaceWith(result);

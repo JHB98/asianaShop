@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductByCategory(String category) {
-        return productMapper.selectProductByCategory(category);
+        return productMapper.selectProductListByCategory(category);
     }
 
     @Override
@@ -43,15 +43,39 @@ public class ProductServiceImpl implements ProductService {
         // curPage 저장
 
         // totalPage 저장
-        int perPage = page.getPerPage(); // 3
+        int perPage = page.getPerPage(); // 4
         int totalRecord = productMapper.selectTotalRecord();
         int totalPage = totalRecord / perPage;
         if (totalRecord % perPage != 0)
             totalPage++;
 
-        // List<BoardDTO> 저장
+        // List<Product> 저장
         int offset = (curPage - 1) * perPage;
         List<Product> list = session.selectList("com.asiana.mall.repository.ProductMapper.selectProductList", null,
+                new RowBounds(offset, perPage));
+
+        // pageDTO 최종저장
+        page.setCurPage(curPage);
+        page.setList(list);
+        page.setTotalPage(totalPage);
+
+        return page;
+    }
+
+    @Override
+    public Page getProductListByCategory(int curPage, Page page, String category) {
+        // curPage 저장
+
+        // totalPage 저장
+        int perPage = page.getPerPage(); // 4
+        int totalRecord = productMapper.selectTotalRecordByCategory(category);
+        int totalPage = totalRecord / perPage;
+        if (totalRecord % perPage != 0)
+            totalPage++;
+
+        // List<Product> 저장
+        int offset = (curPage - 1) * perPage;
+        List<Product> list = session.selectList("com.asiana.mall.repository.ProductMapper.selectProductListByCategory", category,
                 new RowBounds(offset, perPage));
 
         // pageDTO 최종저장

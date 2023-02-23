@@ -126,14 +126,11 @@ public class MainController {
 	}
 
 	@PostMapping("/ShopMiniMall/cart")
-	public ModelAndView insertCart(ModelAndView mv, @AuthenticationPrincipal User userInfo, Random random, Cart cart) {
+	public void insertCart(@AuthenticationPrincipal User userInfo, Random random, Cart cart) {
 		cart.setCartNum(random.nextInt(1000000000));
 		cart.setUserId(userInfo.getUsername());
-
+		System.out.println(cart);
 		cartService.postCart(cart);
-		mv.addObject("data", new Message("장바구니 추가가 완료되었습니다.", "/ShopMiniMall/main"));
-		mv.setViewName("/ShopMiniMall/Message");
-		return mv;
 	}
 
 	@DeleteMapping("/ShopMiniMall/cart/{cartNum}")

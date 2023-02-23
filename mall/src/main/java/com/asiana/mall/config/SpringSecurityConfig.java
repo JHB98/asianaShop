@@ -21,6 +21,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable(); // ajax post 시에 권한 관련 
         http
                 .authorizeRequests()
                 .antMatchers("/ShopMiniMall/main",

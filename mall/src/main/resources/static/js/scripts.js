@@ -26,7 +26,7 @@ function updateCartAmount (index) {
 
 function getProductByCategory (category) {
     $.ajax({
-        url: "/ShopMiniMall/product/category/" + category,
+        url: "/ShopMiniMall/product/category/" + category + "/" + curPage,
         type: "GET",
     }).done(function (result) {
         $("#resultProduct").replaceWith(result);

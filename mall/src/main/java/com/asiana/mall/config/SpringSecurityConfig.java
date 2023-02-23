@@ -29,7 +29,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/ShopMiniMall/Message",
                         "/ShopMiniMall/flight",
                         "/ShopMiniMall/product/{number}",
-                        "/ShopMiniMall/product/category/{category}",
+                        "/ShopMiniMall/product/category/**",
                         "/ShopMiniMall/member/{id}")
                 .permitAll()
                 .anyRequest().authenticated()

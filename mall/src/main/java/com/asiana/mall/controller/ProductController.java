@@ -17,14 +17,14 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
-
-    @GetMapping("/main") // 매핑값인 main로 view인 main.html을 유추한다
-    public @ModelAttribute("Page") Page list(@RequestParam(required = false, defaultValue = "1") int curPage, Page page)
-            throws Exception {
-
-        Page pageDTO = productService.getProductList(curPage, page); // Model
-        return pageDTO; // Model
-    }
+//    TODO: 삭제해야됨
+//    @GetMapping("/main") // 매핑값인 main로 view인 main.html을 유추한다
+//    public @ModelAttribute("Page") Page list(@RequestParam(required = false, defaultValue = "1") int curPage, Page page)
+//            throws Exception {
+//
+//        Page pageDTO = productService.getProductList(curPage, page); // Model
+//        return pageDTO; // Model
+//    }
 
     @GetMapping("/ShopMiniMall/main")
     public ModelAndView getMain(@RequestParam(required = false, defaultValue = "1") int curPage, Product product,
@@ -36,13 +36,18 @@ public class ProductController {
         return mv;
     }
 
-    // @GetMapping("/ShopMiniMall/main")
-    // public ModelAndView getMain(Product product, ModelAndView mv, Cart cart) {
-    // mv.setViewName("/ShopMiniMall/main");
-    // mv.addObject("cart", cart);
-    // mv.addObject("data", productService.getProduct(product));
-    // return mv;
-    // }
+    @GetMapping("/ShopMiniMall/product/category/{category}/{curPage}")
+    public ModelAndView getProductByCategory(ModelAndView mv, @PathVariable("category") String category, @PathVariable("curPage") int curPage,
+                                             Cart cart, Page page) {
+//        mv.setViewName("/ShopMiniMall/main :: resultProduct");
+        mv.setViewName("/ShopMiniMall/category");
+        mv.addObject("cart", cart);
+        mv.addObject("Page", productService.getProductListByCategory(curPage, page, category));
+
+        return mv;
+    }
+
+
     @GetMapping("/ShopMiniMall/product/{number}")
     public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart) {
         mv.setViewName("/ShopMiniMall/product");

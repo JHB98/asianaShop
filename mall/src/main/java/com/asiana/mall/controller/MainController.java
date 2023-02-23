@@ -112,13 +112,13 @@ public class MainController {
 	// return mv;
 	// }
 
-	@GetMapping("/ShopMiniMall/product/category/{category}")
-	public ModelAndView getProductByCategory(ModelAndView mv, @PathVariable("category") String category) {
-		mv.setViewName("/ShopMiniMall/main :: resultProduct");
-		mv.addObject("data", productService.getProductByCategory(category));
-
-		return mv;
-	}
+//	@GetMapping("/ShopMiniMall/product/category/{category}")
+//	public ModelAndView getProductByCategory(ModelAndView mv, @PathVariable("category") String category) {
+//		mv.setViewName("/ShopMiniMall/main :: resultProduct");
+//		mv.addObject("data", productService.getProductByCategory(category));
+//
+//		return mv;
+//	}
 
 	@GetMapping("/ShopMiniMall/cart")
 	public ModelAndView getCart(ModelAndView mv, @AuthenticationPrincipal User userInfo) {

@@ -17,4 +17,10 @@
     <delete id="deleteCart">
         DELETE FROM cart WHERE cartNum = #{cartNum}
     </delete>
+    
+    <update id="updateCartAmount">
+        UPDATE cart
+        SET amount = #{amount}
+        WHERE cartNum = #{cartNum}
+    </update>
 </mapper>

@@ -18,4 +18,6 @@ public interface ProductService {
 
     Page getProductList(int curPage, Page page);
 
+    Page getProductListByCategory(int curPage, Page page, String category);
+
 }

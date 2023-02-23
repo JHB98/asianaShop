@@ -9,4 +9,6 @@ public interface CartService {
     void postCart(Cart cart);
 
     void deleteCart(int cartNum);
+
+    void putCartAmount(int cartNum, int amount);
 }

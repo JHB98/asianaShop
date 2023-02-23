@@ -5,9 +5,28 @@
 */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
+function updateCartAmount (index) {
+    cartAmount = document.getElementById("cartAmount" + index).value
+    cartNum = document.getElementById("cartNum" + index).innerText
+    $.ajax({
+        url: "/ShopMiniMall/cart/" + cartNum,
+        type: "PUT",
+        data: {
+            amount: cartAmount
+        },
+        beforeSend: function (jqXHR, settings) {
+            var header = $("meta[name='_csrf_header']").attr("content");
+            var token = $("meta[name='_csrf']").attr("content");
+            jqXHR.setRequestHeader(header, token);
+        }
+    }).done(function () {
+        window.location.reload();
+    });
+}
+
 function getProductByCategory (category) {
     $.ajax({
-        url: "/ShopMiniMall/product/category/" + category,
+        url: "/ShopMiniMall/product/category/" + category + "/" + curPage,
         type: "GET",
     }).done(function (result) {
         $("#resultProduct").replaceWith(result);

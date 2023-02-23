@@ -16,10 +16,20 @@
     <select id="selectProductByCategory" resultType="Product">
 		SELECT * FROM product WHERE category = #{category}
     </select>
+<!--    TODO : 삭제-->
+<!--    <select id="selectProductByCategory" resultType="Product">-->
+<!--			SELECT * FROM product WHERE category = #{category}-->
+<!--    </select>-->
 
     <select id="selectTotalRecord" resultType="int">
         select count(*)
         from product
+    </select>
+
+    <select id="selectTotalRecordByCategory" resultType="int">
+        select count(*)
+        from product
+        where category = #{category}
     </select>
 
     <select id="selectProductList" resultType="Product">
@@ -34,5 +44,11 @@
             set count = #{totalCount}
         where productNum = #{productNum}
     </update>
+    <select id="selectProductListByCategory" resultType="Product">
+        select *
+        from product
+        where category = #{category}
+        order by number desc
+    </select>
 
 </mapper>

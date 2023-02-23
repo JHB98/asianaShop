@@ -2,6 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -82,18 +84,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="cart : ${data}">
+                            <tr th:each="cart, stat: ${data}">
                                 <td><input style="zoom:2.0" type="checkbox" name="myCheckBox" /></td>
-                                <td th:text="|${cart.cartNum}|"></td>
+                                <td th:id="|cartNum${stat.index}|" th:value="|${cart.cartNum}|"
+                                    th:text="|${cart.cartNum}|"></td>
                                 <td th:text="|${cart.brand}|"></td>
                                 <td th:text="|${cart.name}|"></td>
                                 <td th:text="|${#numbers.formatInteger(cart.price,4,'COMMA')}원|"></td>
                                 <td width="150">
                                     <div class="input-group">
                                         <input type="number" class="form-control bg-light small" aria-label="Search"
-                                            aria-describedby="basic-addon2" th:value="${cart.amount}">
+                                            aria-describedby="basic-addon2" th:id="|cartAmount${stat.index}|"
+                                            th:value="${cart.amount}">
                                         <div class="input-group-append">
-                                            <button class="btn btn-outline-dark" type="button">
+                                            <button th:index="${stat.index}"
+                                                th:onclick="updateCartAmount(this.getAttribute('index'))"
+                                                class="btn btn-outline-dark" type="button">
                                                 수정
                                             </button>
                                         </div>
@@ -125,9 +131,9 @@
                         선택 구매
                     </button>
                 </form>
-                    <button onclick="requestPay()" class="btn btn-outline-dark" type="submit">
-                        결제 진행
-                    </button>
+                <button onclick="requestPay()" class="btn btn-outline-dark" type="submit">
+                    결제 진행
+                </button>
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/payConfirm}" method="get"
                     class="form-check-inline">
                     <button class="btn btn-outline-dark" type="submit">

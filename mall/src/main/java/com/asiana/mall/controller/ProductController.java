@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+    ProductService productService; 
 
     @GetMapping("/main") // 매핑값인 main로 view인 main.html을 유추한다
     public @ModelAttribute("Page") Page list(@RequestParam(required = false, defaultValue = "1") int curPage, Page page)
@@ -36,13 +36,7 @@ public class ProductController {
         return mv;
     }
 
-    // @GetMapping("/ShopMiniMall/main")
-    // public ModelAndView getMain(Product product, ModelAndView mv, Cart cart) {
-    // mv.setViewName("/ShopMiniMall/main");
-    // mv.addObject("cart", cart);
-    // mv.addObject("data", productService.getProduct(product));
-    // return mv;
-    // }
+
     @GetMapping("/ShopMiniMall/product/{number}")
     public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart, Product product) {
         mv.setViewName("/ShopMiniMall/product");

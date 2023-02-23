@@ -23,34 +23,25 @@ import com.asiana.mall.vo.PurchaseInfo;
 @Controller
 public class PurchaseController {
 	private PurchaseServiceImpl purchaseService;
+
 	public PurchaseController(PurchaseServiceImpl purchaseService) {
 		this.purchaseService = purchaseService;
 	}
-		
 
 	@GetMapping("/ShopMiniMall/purchase")
-	public ModelAndView getPurchase(Product product, HttpServletRequest request, ModelAndView mv) throws Exception {
-//		String [] itemNumbers= request.getParameterValues("productNum");
-//		for (String i:itemNumbers) {
-//			System.out.println(i);
-//		}
-//		System.out.println(itemNumbers);
+	public ModelAndView getPurchase(HttpServletRequest request, ModelAndView mv) throws Exception {
 
-//		Integer i = Integer.valueOf(product.getNumber())
-//		Integer[] itemNumbersInt = [i];
+		String[] itemNumbers = request.getParameterValues("number");
 
-		String [] itemNumbers = new String[] {Integer.toString(product.getNumber())};
 		Integer[] itemNumbersInt = Stream.of(itemNumbers).mapToInt(Integer::parseInt)
 				.boxed().toArray(Integer[]::new);
-	
-		
+
 		List<Integer> list = Arrays.asList(itemNumbersInt);
 
 		List<Product> productList = purchaseService.selectProductListByIdList(list);
-		System.out.println(productList);
 		mv.setViewName("/ShopMiniMall/purchase");
 		mv.addObject("purchaseProductsList", productList);
 		return mv;
-	}	
-}
+	}
 
+}

@@ -44,10 +44,11 @@ public class ProductController {
     // return mv;
     // }
     @GetMapping("/ShopMiniMall/product/{number}")
-    public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart) {
+    public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart, Product product) {
         mv.setViewName("/ShopMiniMall/product");
         mv.addObject("cart", cart);
         mv.addObject("data", productService.getProductById(number));
+        mv.addObject("product", product);
 
         return mv;
     }

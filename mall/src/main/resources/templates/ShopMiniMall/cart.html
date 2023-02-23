@@ -147,25 +147,27 @@
         function requestPay () {
             console.log("진행10");
             IMP.request_pay({
-                pg : 'kcp.{상점ID}',
-                pay_method : 'card',
-                merchant_uid: "57008833-33004", 
-                name : '의류',
-                amount : 10,
-                buyer_email : 'Iamport@chai.finance',
-                buyer_name : '포트원 기술지원팀',
-                buyer_tel : '010-1234-5678',
-                buyer_addr : '서울특별시 강남구 삼성동',
-                buyer_postcode : '123-456'
-            }, 
-            function (rsp) { // callback
-                console.log(rsp);
-                if (rsp.success) {
-                    console.log("성공");
+                pg: 'kcp.{상점ID}',
+                pay_method: 'card',
+                merchant_uid: "57008833-33004",
+                name: '의류',
+                amount: 10,
+                buyer_email: 'Iamport@chai.finance',
+                buyer_name: '포트원 기술지원팀',
+                buyer_tel: '010-1234-5678',
+                buyer_addr: '서울특별시 강남구 삼성동',
+                buyer_postcode: '123-456'
+            },
+                function (rsp) { // callback
                     console.log(rsp);
+                if (rsp.success) {
+                        console.log("성공");
+                        console.log(rsp);
+                        location.href = 'payConfirm';   // 성공 시 넘어갈 페이지
                 } else {
                     console.log("실패");
                     console.log(rsp);
+                    location.href = 'cart'; // 실패 시 넘어갈 페이지
                 }
             });
             console.log("진행3");

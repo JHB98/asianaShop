@@ -172,9 +172,22 @@ public class MainController {
 	}
 
 	@GetMapping("/ShopMiniMall/mypage")
-	public ModelAndView getmypage(ModelAndView mv, Member member) {
+	public ModelAndView getmypage(ModelAndView mv, @AuthenticationPrincipal User userInfo, Member member) {
 		mv.setViewName("/ShopMiniMall/mypage");
-		mv.addObject("data", memberService.getMember(member));
+		mv.addObject("user", memberService.getMemberById(userInfo.getUsername()));
+		mv.addObject("ref", member);
+		return mv;
+	}
+
+	@PutMapping("/ShopMiniMall/member/{id}")
+	public ModelAndView updateMember(ModelAndView mv, @AuthenticationPrincipal User userInfo, Member ref, @PathVariable("id") String id, Member member) {
+		
+		memberService.putMember(id, ref);
+
+		mv.setViewName("/ShopMiniMall/mypage");
+		mv.addObject("user", memberService.getMemberById(userInfo.getUsername()));
+		mv.addObject("ref", member);
 		return mv;
 	}
 }
+

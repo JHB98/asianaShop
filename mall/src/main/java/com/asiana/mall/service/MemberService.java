@@ -11,4 +11,6 @@ public interface MemberService {
 
     void postMember(Member member);
 
+    void putMember(String id, Member member);
+
 }

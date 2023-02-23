@@ -16,4 +16,6 @@ public interface ProductMapper {
     int selectTotalRecord();
 
     List<Product> selectProductList();
+
+    void updateProductCount(@Param("productNum") int productNum, @Param("totalCount") int totalCount);
 }

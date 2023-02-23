@@ -2,6 +2,7 @@ package com.asiana.mall.service;
 
 import java.util.List;
 
+import com.asiana.mall.vo.Cart;
 import com.asiana.mall.vo.Page;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -36,6 +37,24 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductByCategory(String category) {
         return productMapper.selectProductByCategory(category);
+    }
+
+    
+
+    // 재고 예외처리 
+    public class OutofCountException extends RuntimeException{
+        public OutofCountException(String message){
+            super(message);
+        }
+    }
+
+    @Override
+    public void putProductCount(Cart cart, Product product) {
+        int totalCount = product.getCount() - cart.getAmount();
+        if(totalCount < 0){
+            throw new OutofCountException("상품의 재고가 부족합니다.");
+        }
+        productMapper.updateProductCount(product.getNumber(), totalCount);
     }
 
     @Override

@@ -8,12 +8,19 @@
     <meta name="author" content="" />
     <title>ASIANA Duty Free Shop</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" th:href="@{/assets/sld.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+
+    <!--결제기능-->
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
 </head>
 
 <body>
@@ -29,9 +36,6 @@
                     <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active"
                             aria-current="page" th:text="|${#authentication.name}님 환영합니다!|"></a>
                     </li>
-                    <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link active"
-                            aria-current="page" th:href="@{/ShopMiniMall/member}">로그인</a>
-                    </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form role="form" th:action="@{/logout}" method="post">
                             <button class="btn btn-outline-dark" type="submit">
@@ -46,8 +50,6 @@
                             </button>
                         </form>
                     </li>
-                    <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
-                            th:href="@{/ShopMiniMall/MemberUIServlet}">회원가입</a></li>
                 </ul>
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
                     <button class="btn btn-outline-dark" type="submit">
@@ -59,36 +61,55 @@
         </div>
     </nav>
     <!-- Product section-->
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="row gx-4 gx-lg-5 align-items-center">
-                <div class="col-md-6"><img class="card-img-top" th:src="|/img/${data.number}.jpg|" alt="..." /></div>
-                <div class="col-md-6">
-                    <div class="small mb-1" th:text="${data.brand}"></div>
-                    <h1 class="display-5 fw-bolder" th:text="${data.name}"></h1>
-                    <div class="fs-5 mb-5">
-                        <span th:text="|${data.price}원|"></span>
-                    </div>
-                    <div sec:authorize="isAuthenticated()" class="d-flex">
-                        <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}"
-                            th:object="${cart}" method="post">
-                            <input class="form-control text-center me-3" id="amount" name="amount" type="num"
-                                th:value="1" style="max-width: 3rem" />
-                            <input type="hidden" th:value="${data.number}" id="productNum" name="productNum"
-                                class="form-control">
-
-                            <p th:text="|남은 수량 : ${data.count}개|"></p> <!--count 넣기-->
-
-                            <button class="btn btn-outline-dark" style="margin-top : 15px" type="submit">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
-                        </form>
-                    </div>
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h2 class="m-0 font-weight-bold">마이페이지</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>아이디</th>
+                                <th>이름</th>
+                                <th>주소</th>
+                                <th>전화번호</th>
+                                <th>이메일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="member : ${data}">
+                                <td th:text="|${member.id}|"></td>
+                                <td th:text="|${member.name}|"></td>
+                                <td th:text="|${member.address}|"></td>
+                                <td th:text="|${member.phone}|"></td>
+                                <td th:text="|${member.email}|"></td>
+                                <td width="150">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control bg-light small" aria-label="Search"
+                                            aria-describedby="basic-addon2" th:value="${cart.amount}">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-dark" type="button">
+                                                수정
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get"
+                    class="form-check-inline">
+                    <button class="btn btn-outline-dark" type="submit">
+                        수정하기
+                    </button>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">
@@ -99,6 +120,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script th:src="@{/js/scripts.js}"></script>
+
 </body>
 
 </html>

@@ -43,6 +43,13 @@
                             </button>
                         </form>
                     </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get" class="d-flex">
+                            <button class="btn btn-outline-dark" type="submit">
+                                마이페이지
+                            </button>
+                        </form>
+                    </li>
                 </ul>
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
                     <button class="btn btn-outline-dark" type="submit">

@@ -153,5 +153,12 @@ public class MainController {
 		return mv;
 	}
 
+	@GetMapping("/ShopMiniMall/mypage")
+	public ModelAndView getmypage(ModelAndView mv, Member member) {
+		mv.setViewName("/ShopMiniMall/mypage");
+		mv.addObject("data", memberService.getMember(member));
+		return mv;
+	}
+
 
 }

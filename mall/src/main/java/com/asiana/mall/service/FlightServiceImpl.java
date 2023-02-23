@@ -17,6 +17,9 @@ public class FlightServiceImpl implements FlightService {
 	public List<Flight> searchFlight(Flight flight) throws Exception {
 		// TODO Auto-generated method stub
 		List<Flight> list = mapper.searchFlight(flight);
+		System.out.print(list);
+		System.out.print("아아");
+		
 		return list;
 	}
 }

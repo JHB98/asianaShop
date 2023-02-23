@@ -14,17 +14,10 @@ public class FlightController {
 	public FlightController(FlightServiceImpl flightService) {
 		this.flightService = flightService;
 	}
-  
-	@GetMapping("/ShopMiniMall/flightForm")
-	public String flightForm(Flight flight) {		
-		return "/ShopMiniMall/flight";
-	}
-	
+
 	@GetMapping("/ShopMiniMall/flight")
 	public ModelAndView getFlightList(ModelAndView mv,  Flight flight) throws Exception {
-		System.out.println(flight);
-		
-		mv.setViewName("/ShopMiniMall/flight :: flightListFragment");
+		mv.setViewName("/ShopMiniMall/purchase :: flightListFragment");
 		mv.addObject("flightList", flightService.searchFlight(flight));
 		return mv;
 	}

@@ -34,4 +34,9 @@ public class CartServiceImpl implements CartService {
     public void deleteCart(int cartNum) {
         cartMapper.deleteCart(cartNum);
     }
+
+    @Override
+    public void putCartAmount(int cartNum, int amount) {
+        cartMapper.updateCartAmount(cartNum, amount);
+    }
 }

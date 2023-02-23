@@ -10,7 +10,6 @@ import com.asiana.mall.vo.Cart;
 public class CartServiceImpl implements CartService {
 
     private CartMapper cartMapper;
-    
 
     public CartServiceImpl(CartMapper cartMapper) {
         this.cartMapper = cartMapper;
@@ -39,5 +38,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public void putCartAmount(int cartNum, int amount) {
         cartMapper.updateCartAmount(cartNum, amount);
+    }
+
+    @Override
+    public void deleteCartById(String userId) {
+        cartMapper.deleteCartById(userId);
     }
 }

@@ -44,13 +44,21 @@
                         </form>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get" class="d-flex">
+                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get"
+                            class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">
                                 마이페이지
                             </button>
                         </form>
                     </li>
                 </ul>
+                <div class ="animated-text">
+                    <div class="line">USDKRW 1298.16</div>
+                    <div class="line">USDJPY 9.62</div>
+                    <div class="line">USDCNY 188.16</div>
+                    <div class="line">USDEUR 1,376.36</div>
+                </div>
+
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
                     <button class="btn btn-outline-dark" type="submit">
                         <i class="bi-cart-fill me-1"></i>

@@ -112,13 +112,14 @@ public class MainController {
 	// return mv;
 	// }
 
-//	@GetMapping("/ShopMiniMall/product/category/{category}")
-//	public ModelAndView getProductByCategory(ModelAndView mv, @PathVariable("category") String category) {
-//		mv.setViewName("/ShopMiniMall/main :: resultProduct");
-//		mv.addObject("data", productService.getProductByCategory(category));
-//
-//		return mv;
-//	}
+	// @GetMapping("/ShopMiniMall/product/category/{category}")
+	// public ModelAndView getProductByCategory(ModelAndView mv,
+	// @PathVariable("category") String category) {
+	// mv.setViewName("/ShopMiniMall/main :: resultProduct");
+	// mv.addObject("data", productService.getProductByCategory(category));
+	//
+	// return mv;
+	// }
 
 	@GetMapping("/ShopMiniMall/cart")
 	public ModelAndView getCart(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
@@ -148,9 +149,18 @@ public class MainController {
 		return mv;
 	}
 
+	@DeleteMapping("/ShopMiniMall/cart")
+	public void deleteCartById(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
+		System.out.println("ddd");
+		cartService.deleteCartById(userInfo.getUsername());
+		// mv.setViewName("/ShopMiniMall/cart");
+		// mv.addObject("data", cartService.getCart(userInfo.getUsername()));
+
+		// return mv;
+	}
 
 	@PutMapping("/ShopMiniMall/cart/{cartNum}")
-	public void updateCart(@RequestParam("amount") int amount, @PathVariable("cartNum") int cartNum) {
+	public @ResponseBody void updateCart(@RequestParam("amount") int amount, @PathVariable("cartNum") int cartNum) {
 		cartService.putCartAmount(cartNum, amount);
 	}
 

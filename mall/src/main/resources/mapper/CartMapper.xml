@@ -23,4 +23,8 @@
         SET amount = #{amount}
         WHERE cartNum = #{cartNum}
     </update>
+
+    <delete id="deleteCartById">
+        DELETE FROM cart WHERE userId = #{userId}
+    </delete>
 </mapper>

@@ -14,4 +14,6 @@ public interface CartMapper {
     void deleteCart(@Param("cartNum") int cartNum);
 
     void updateCartAmount(@Param("cartNum") int cartNum, @Param("amount") int amount);
+
+    void deleteCartById(@Param("userId") String userId);
 }

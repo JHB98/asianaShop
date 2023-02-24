@@ -2,6 +2,9 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -78,17 +81,24 @@
                         <span th:text="|${data.price}원|"></span>
                     </div>
                     <div sec:authorize="isAuthenticated()" class="d-flex">
-                        <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/purchase}" method="get">
-                            <input class="form-control text-center me-3" id="amount" name="amount" type="number"
+                        
+                        <form role="form" sec:authorize="isAuthenticated()"
+                            th:action="@{/ShopMiniMall/purchase}" method="get" th:object="${cart}">
+
+                            <input class="form-control text-center me-3" id="amount" type="number" th:field="${cart.amount}"
                                 th:value="1" style="max-width: 3rem" />
-
-                            <p th:text="|남은 수량 : ${data.count}개|"></p> <!--count 넣기-->
-
-                            <button class="btn btn-outline-dark" style="margin-top : 15px" th:onclick="createCartItem([[${data}]])" type="button">
+                            
+                            <input type="hidden" th:field="*{productNum}" th:value="${cart.productNum}"/>
+                            <input type="hidden" th:field="*{brand}" th:value="${cart.brand}"/>
+                            <input type="hidden" th:field="*{name}" th:value="${cart.name}"/>
+                            <input type="hidden" th:field="*{price}" th:value="${cart.price}"/>
+                            <input type="hidden"  th:field="*{category}" th:value="${cart.category}"/>
+                                <p th:text="|남은 수량 : ${data.count}개|"></p> <!--count 넣기-->
+                            <button class="btn btn-outline-dark" style="margin-top : 15px" th:onclick="createCartItem([[ ${data} ]])" type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 장바구니 넣기 
                             </button>
-	                        <input type="hidden" th:value="${data.number}" id="number" name="number" class="form-control">                            
+	                        <!-- <input type="hidden" th:value=" ${data.number}" id="number" name="number" class="form-control">                             -->
                             <button class="btn btn-outline-dark"  style="margin-top : 15px" type="submit">
                                 <i class="bi-cart-fill me-1"></i>
                                 	바로 구매

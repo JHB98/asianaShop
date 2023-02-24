@@ -4,93 +4,152 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>ASIANA Duty Free Shop</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" th:href="@{/assets/sld.ico}" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>ASIANA Duty Free Shop</title>
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" th:href="@{/assets/sld.ico}" />
+	<!-- Bootstrap icons-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" th:href="@{/ShopMiniMall/main}">ASIANA Duty Free Shop</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page"
-                            th:href="@{/ShopMiniMall/member}">로그인</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/ShopMiniMall/MemberUIServlet}">회원가입</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- Header-->
-    <header class="bg-dark py-5" style="background-image: url('../img/banner.png');">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">로그인</h1>
-            </div>
-        </div>
-    </header>
+	<!-- Navigation-->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container px-4 px-lg-5">
+			<a class="navbar-brand" th:href="@{/ShopMiniMall/main}">ASIANA Duty Free Shop</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+					<li class="nav-item"><a class="nav-link active" aria-current="page"
+							th:href="@{/ShopMiniMall/member}">로그인</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/ShopMiniMall/MemberUIServlet}">회원가입</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
-    <!-- Section-->
+	<!-- Header-->
+	<header class="bg-dark py-5" style="background-image: url('../img/banner.png');">
+		<div class="container px-4 px-lg-5 my-5">
+			<div class="text-center text-white">
+				<h1 class="display-4 fw-bolder">로그인</h1>
+			</div>
+		</div>
+	</header>
 
-    <div class="container">
-    	<div>
-    	<h2>주문 상품</h2>
-    	<div id="purchaseProductsList" th:fragment="purchaseProductsList">
-	    	<table border="1">
+	<!-- Section-->
+
+	<div class="container px-4 px-lg-5">
+		<div class="py-1">
+			<div class="py-1" style="font-size:larger; font-weight: bold; ">
+				주문 상품
+			</div>
+			<div id="purchaseProductsList" th:fragment="purchaseProductsList">
+				<table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+					<thead>
 						<tr>
 							<td>상품</td>
 							<td>상품 명</td>
 							<td>수량</td>
-							<td>주문 금액</td>
+							<td>가격</td>
+							<td>합계</td>
 						</tr>
+					</thead>
+					<tbody>
 						<tr th:each="product : ${purchaseProductsList}">
-							<td class="productTd" >
-							 <img class="productImage" th:src="|/img/${product.number}.jpg|" >
+							<td class="productTd">
+								<img class="productImage" th:src="|/img/${product.productNum}.jpg|" height="60px">
 							</td>
-							<td class="productTd" th:text="${product.name}"></td>
-							<td class="productTd" th:text="${product.name}">카운터</td>
+							<td class="productTd" style="text-align:left;" width="60%">
+								<strong>[ [[${product.brand}]] ]</strong>
+								<p>
+									[[${product.name}]]
+								</p>
+							</td>
+							<td class="productTd" th:text="${product.amount}"></td>
 							<td class="productTd" th:text="${product.price}"></td>
+							<td class="productTd" th:text="${product.totalPrice}"></td>
 						</tr>
-					</table>
-		    	</div>
-	    </div>
-	    </div>
-    	<div class="container px-4 px-lg-5 mt-5">
-    		<h3>항공편 정보 입력</h3>
-				<div id="searchFlight">
-					도착지 : <input type="text" id="arrival"> <br>
-					출발지 : <input type="text" id="departure"> <br>
-					탑승일 : <input type="date" id="boardingDate"><br>
-					<button onclick="getFlightList()">검색</button>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div>
+			<div class="py-1" style="width: 20% ; font-size:larger; font-weight: bold; ">
+				항공편 예약 정보
+			</div>
+			<div id="searchFlight">
+				<div id="form-group" class="d-flex">
+					<label for="arrival" style="width: 20%;">도착지</label>
+					<div>
+						<select class="form-control" id="arrival" width="150px">
+							<option>김포</option>
+							<option>김해</option>
+							<option>인천</option>
+							<option>제주</option>
+							<option>청주</option>
+							<option>대구</option>
+							<option>도쿄 (하네다)</option>
+							<option>나리타</option>
+							<option>간사이</option>
+						</select>
+						<small>상품 수령을 원하는 편명 기준으로 출/도착지 선택해주시기 바랍니다.<br>
+							(예시, 후쿠오카발 부상행 귀국편 수령의 경우, 출발지 : 후쿠오카, 도착지 : 부산)
+						</small>
+					</div>
 				</div>
-				<div id="flightList" th:fragment="flightListFragment">
-					검색 결과
-					<table border="1">
-						<tr>
-							<td>  </td>
-							<td>항공편번호</td>
-							<td>도착지</td>
-							<td>출발지</td>
-							<td>탑승일</td>
-						</tr>
+				<hr>
+				<div id="form-group" class="d-flex">
+					<label for="departure" style="width: 20%;">출발지</label>
+					<div>
+						<select class="form-control" width="150px" id="departure">
+							<option>김포</option>
+							<option>김해</option>
+							<option>인천</option>
+							<option>제주</option>
+							<option>청주</option>
+							<option>대구</option>
+							<option>도쿄 (하네다)</option>
+							<option>나리타</option>
+							<option>간사이</option>
+						</select>
+					</div>
+				</div>
+
+				<hr>
+				<div id="form-group" class="d-flex">
+					<label for="boardingDate" style="width: 20%;">탑승일</label>
+
+					<input type="date" id="boardingDate">
+					<button onclick="getFlightList()" class="btn btn-primary p-1">Submit</button>
+				</div>
+
+				<div id="flightListSection" th:fragment="flightListFragment">
+					<!-- <div id="form-group" class="d-flex"></div> -->
+					<div class="py-1" style="font-size:larger; font-weight: bold; ">
+						검색 결과
+					</div>
+
+					<table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<td> </td>
+								<td>항공편번호</td>
+								<td>도착지</td>
+								<td>출발지</td>
+								<td>탑승일</td>
+							</tr>
+						</thead>
 						<tr th:each="flight : ${flightList}">
-							<td><input type="radio" name="fligthRadioButton"
-								th:value="${flight.flightId}"></td>
+							<td><input type="radio" name="fligthRadioButton" th:value="${flight.flightId}"></td>
 							<td class="fligthOption" th:text="${flight.flightId}"></td>
 							<td class="fligthOption" th:text="${flight.arrival}"></td>
 							<td class="fligthOption" th:text="${flight.departure}"></td>
@@ -98,20 +157,22 @@
 						</tr>
 					</table>
 				</div>
+			</div>
 			<button onclick="requestPay()" class="btn btn-outline-dark" type="submit">결제 진행</button>
 		</div>
-    <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
-        </div>
-    </footer>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script th:src="@{/js/scripts.js}"></script>
-    <script th:src="@{/js/Flight/flight.js}"></script>
+	</div>
+	<!-- Footer-->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
+		</div>
+	</footer>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script th:src="@{/js/scripts.js}"></script>
+	<script th:src="@{/js/Flight/flight.js}"></script>
 </body>
 
 </html>

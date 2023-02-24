@@ -41,7 +41,7 @@
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get"
-                            class="d-flex">
+                        class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">
                                 마이페이지
                             </button>
@@ -111,13 +111,16 @@
                             <!-- page -->
                             <!-- Product image-->
 
-                            <a th:href="@{/ShopMiniMall/product/{number}(number=${product.number})}"><img
-                                    class="card-img-top" th:src="|/img/${product.number}.jpg|" alt="..." /></a>
+                            <a th:href="@{/ShopMiniMall/product/{number}(number=${product.number})}">
+                                <img height="320px"  class="card-img-top" th:src="|/img/${product.number}.jpg|" alt="..." /></a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder" th:text="|${product.brand} ${product.name}|"></h5>
+                                    <div class="fw-bolder" style="font-size: large; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 40px; width:220px;" >
+                                        [[${product.name}]]
+                                    </div>
+                                    <b style="font-weight: 500; color: #6E6E6E;">[[${product.brand}]] </b>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="bi-star-fill"></div>
@@ -127,25 +130,11 @@
                                         <div class="bi-star-fill"></div>
                                     </div>
                                     <!-- Product price-->
-                                    <div th:text="|${product.price}원|"></div>
+                                    <div style="font-size: large;"  th:text="|${product.price}원|"></div>
                                 </div>
                             </div>
 
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <form role="form" sec:authorize="isAuthenticated()"
-                                        th:action="@{/ShopMiniMall/cart}" th:object="${cart}" method="post">
-                                        <input type="hidden" th:value="${product.number}" id="productNum"
-                                            name="productNum" class="form-control">
-                                        <input type="hidden" th:value=1 id="amount" name="amount" class="form-control">
-                                        <button class="btn btn-outline-dark mt-auto" type="submit">
-                                            <i class="bi-cart-fill me-1"></i>
-                                            Add to cart
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </th:block>

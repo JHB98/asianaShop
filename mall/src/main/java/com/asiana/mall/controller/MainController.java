@@ -120,13 +120,13 @@ public class MainController {
 	//
 	// return mv;
 	// }
-
+  
 	@GetMapping("/ShopMiniMall/cart")
 	public ModelAndView getCart(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
 		mv.setViewName("/ShopMiniMall/cart");
 		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
 		return mv;
-	}
+	} 
 
 	@PostMapping("/ShopMiniMall/cart")
 	public void insertCart(@AuthenticationPrincipal User userInfo, Random random, Cart cart) {
@@ -135,7 +135,7 @@ public class MainController {
 		System.out.println(cart);
 		cartService.postCart(cart);
 	}
-
+	
 	@DeleteMapping("/ShopMiniMall/cart/{cartNum}")
 	public ModelAndView deleteCart(ModelAndView mv, @AuthenticationPrincipal User userInfo,
 			@PathVariable("cartNum") int cartNum) {

@@ -30,12 +30,13 @@
                     <li class="nav-item"><a class="nav-link active" aria-current="page"
                             th:href="@{/ShopMiniMall/member}" th:text="${#messages.msg('login')}">로그인</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/ShopMiniMall/MemberUIServlet}" th:text="${#messages.msg('signup')}">회원가입</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/ShopMiniMall/MemberUIServlet}"
+                            th:text="${#messages.msg('signup')}">회원가입</a></li>
                 </ul>
             </div>
         </div>
 
-        <select onchange="location = this.value">
+        <select class="btn btn-outline-dark mt-auto" onchange="location = this.value">
             <option selected>LANG</option>
             <option value="?lang=kr">KOREA</option>
             <option value="?lang=en">ENGLISH</option>
@@ -65,7 +66,8 @@
                 <span th:style="${'color: red; font-size:11px;'}"
                     th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span>
             </div>
-            <button type="submit" class="btn btn-outline-dark" style="margin-top : 15px" th:text="${#messages.msg('login')}">로그인</button>
+            <button type="submit" class="btn btn-outline-dark" style="margin-top : 15px"
+                th:text="${#messages.msg('login')}">로그인</button>
         </form>
         <form th:action="@{/ShopMiniMall/main}" method="get" class="d-flex">
             <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('cancel')}">

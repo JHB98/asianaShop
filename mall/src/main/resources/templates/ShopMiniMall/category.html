@@ -29,7 +29,7 @@
 
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <a class="nav-link active" aria-current="page"
-                            th:text="|${#messages.msg('welcome')} ${#authentication.name}|"></a>
+                            th:text="|${#authentication.name}님 ${#messages.msg('welcome')}!|"></a>
                     </li>
                     <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link active"
                             aria-current="page" th:href="@{/ShopMiniMall/member}"
@@ -45,7 +45,8 @@
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get"
                             class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('mypage')}">
+                            <button class="btn btn-outline-dark" type="submit" style="margin-left : 15px"
+                                th:text="${#messages.msg('mypage')}">
                                 마이페이지
                             </button>
                         </form>
@@ -95,7 +96,7 @@
                     </button>
                 </form>
 
-                <select onchange="location = this.value">
+                <select class="btn btn-outline-dark mt-auto" onchange="location = this.value">
                     <option selected>LANG</option>
                     <option value="?lang=kr">KOREA</option>
                     <option value="?lang=en">ENGLISH</option>
@@ -169,7 +170,7 @@
             <th:block
                 th:with="perPage=${Page.perPage}, totalPage=${Page.totalPage}, curPage=${Page.curPage}, category=${Page.list.get(0).category}">
                 <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
-                    <button style="background-color : #6E6E6E" class="btn btn-outline-dark mt-auto"
+                    <button style="background-color : #212529; color: #fff;" class="btn btn-outline-dark mt-auto"
                         th:if="${i==curPage}">[[${i}]]</button>
                     <button class="btn btn-outline-dark mt-auto"
                         th:onclick="|location.href='@{/ShopMiniMall/product/category/{category}/{curPage}(category=${category}, curPage=${i})}'|"

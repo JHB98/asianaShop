@@ -165,17 +165,5 @@ function deleteCarts (size) {
         }
     }
 
-    cartNumList = cartNumList.slice(0, cartNumList.length - 1);
-
-    $.ajax({
-        url: "/ShopMiniMall/cart/list/" + cartNumList,
-        type: "DELETE",
-        beforeSend: function (jqXHR, settings) {
-            var header = $("meta[name='_csrf_header']").attr("content");
-            var token = $("meta[name='_csrf']").attr("content");
-            jqXHR.setRequestHeader(header, token);
-        }
-    }).done(function () {
-        // window.location.reload();
-    });
+    document.getElementById('list').value = cartNumList.slice(0, cartNumList.length - 1);
 }

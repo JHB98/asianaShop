@@ -37,7 +37,8 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active"
-							aria-current="page" th:text="|${#authentication.name}님 환영합니다!|"></a></li>
+							aria-current="page" th:text="|${#authentication.name}님 ${#messages.msg('welcome')}!|"></a>
+					</li>
 					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link active"
 							aria-current="page" th:href="@{/ShopMiniMall/member}">로그인</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item">

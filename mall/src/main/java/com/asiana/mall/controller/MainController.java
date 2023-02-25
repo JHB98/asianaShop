@@ -19,13 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.asiana.mall.service.CartServiceImpl;
 import com.asiana.mall.service.MemberServiceImpl;
-import com.asiana.mall.service.ProductServiceImpl;
 import com.asiana.mall.vo.Member;
 import com.asiana.mall.vo.Message;
-import com.asiana.mall.vo.Product;
 import com.asiana.mall.vo.Cart;
-
-import java.util.List;
+import com.asiana.mall.vo.InfoList;
 import java.util.Map;
 import java.util.Random;
 
@@ -33,27 +30,16 @@ import java.util.Random;
 public class MainController {
 
 	private final MemberServiceImpl memberService;
-	private final ProductServiceImpl productService;
 	private final CartServiceImpl cartService;
 
-	public MainController(MemberServiceImpl memberService, ProductServiceImpl productService,
-			CartServiceImpl cartService) {
+	public MainController(MemberServiceImpl memberService, CartServiceImpl cartService) {
 		this.memberService = memberService;
-		this.productService = productService;
 		this.cartService = cartService;
 	}
 
 	public String encodeBcrypt(String pwd) {
 		return new BCryptPasswordEncoder().encode(pwd);
 	}
-
-	// @GetMapping("/ShopMiniMall/main")
-	// public ModelAndView getMain(Product product, ModelAndView mv, Cart cart) {
-	// mv.setViewName("/ShopMiniMall/main");
-	// mv.addObject("cart", cart);
-	// mv.addObject("data", productService.getProduct(product));
-	// return mv;
-	// }
 
 	@GetMapping("/ShopMiniMall/member")
 	public ModelAndView getMember(Member member, ModelAndView mv) {
@@ -102,38 +88,23 @@ public class MainController {
 		return mv;
 	}
 
-	// @GetMapping("/ShopMiniMall/product/{number}")
-	// public ModelAndView getProductById(@PathVariable("number") int number,
-	// ModelAndView mv, Cart cart) {
-	// mv.setViewName("/ShopMiniMall/product");
-	// mv.addObject("cart", cart);
-	// mv.addObject("data", productService.getProductById(number));
-	//
-	// return mv;
-	// }
-
-	// @GetMapping("/ShopMiniMall/product/category/{category}")
-	// public ModelAndView getProductByCategory(ModelAndView mv,
-	// @PathVariable("category") String category) {
-	// mv.setViewName("/ShopMiniMall/main :: resultProduct");
-	// mv.addObject("data", productService.getProductByCategory(category));
-	//
-	// return mv;
-	// }
-
 	@GetMapping("/ShopMiniMall/cart")
-	public ModelAndView getCart(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
+	public ModelAndView getCart(ModelAndView mv, @AuthenticationPrincipal User userInfo, InfoList list) {
 		mv.setViewName("/ShopMiniMall/cart");
 		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
+		mv.addObject("list", list);
 		return mv;
 	}
 
 	@PostMapping("/ShopMiniMall/cart")
-	public void insertCart(@AuthenticationPrincipal User userInfo, Random random, Cart cart) {
+	public ModelAndView insertCart(ModelAndView mv, @AuthenticationPrincipal User userInfo, Random random, Cart cart) {
 		cart.setCartNum(random.nextInt(1000000000));
 		cart.setUserId(userInfo.getUsername());
-		System.out.println(cart);
+
 		cartService.postCart(cart);
+		mv.addObject("data", new Message("장바구니 추가가 완료되었습니다.", "/ShopMiniMall/main"));
+		mv.setViewName("/ShopMiniMall/Message");
+		return mv;
 	}
 
 	@DeleteMapping("/ShopMiniMall/cart/{cartNum}")
@@ -183,8 +154,13 @@ public class MainController {
 		return mv;
 	}
 
-	@DeleteMapping("/ShopMiniMall/cart/list/{cartNumList}")
-	public void deleteCartByNumberList(@PathVariable("cartNumList") String cartNumList) {
-		cartService.deleteCartByNumberList(cartNumList);
+	@DeleteMapping("/ShopMiniMall/cart/list")
+	public ModelAndView deleteCartByNumberList(ModelAndView mv, @AuthenticationPrincipal User userInfo, InfoList list,
+			InfoList refList) {
+		cartService.deleteCartByNumberList(list.getList());
+		mv.setViewName("/ShopMiniMall/cart");
+		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
+		mv.addObject("list", refList);
+		return mv;
 	}
 }

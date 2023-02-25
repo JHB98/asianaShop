@@ -31,12 +31,13 @@
                     <li class="nav-item"><a class="nav-link active" aria-current="page"
                             th:href="@{/ShopMiniMall/member}" th:text="${#messages.msg('login')}">로그인</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/ShopMiniMall/MemberUIServlet}" th:text="${#messages.msg('signup')}">회원가입</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/ShopMiniMall/MemberUIServlet}"
+                            th:text="${#messages.msg('signup')}">회원가입</a></li>
                 </ul>
             </div>
         </div>
 
-        <select onchange="location = this.value">
+        <select class="btn btn-outline-dark mt-auto" onchange="location = this.value">
             <option selected>LANG</option>
             <option value="?lang=kr">KOREA</option>
             <option value="?lang=en">ENGLISH</option>
@@ -74,7 +75,8 @@
             <div class="form-group">
                 <span>*</span>
                 <label th:for="pwd" th:text="${#messages.msg('password')}">비밀번호</label>
-                <input type="password" th:field="*{pwd}" class="form-control" th:placeholder="${#messages.msg('password')}">
+                <input type="password" th:field="*{pwd}" class="form-control"
+                    th:placeholder="${#messages.msg('password')}">
                 <!-- 비밀번호 미입력 ALT -->
                 <span th:style="${'color: red; font-size:11px;'}" th:text="${valid_pwd}"></span>
             </div>
@@ -82,7 +84,7 @@
                 <span>*</span>
                 <label th:for="pwd" th:text="${#messages.msg('passwordCheck')}">비밀번호 확인</label>
                 <input type="password" id="checkPassword" class="form-control" oninput="passwordCheck()"
-                       th:placeholder="${#messages.msg('passwordCheck')}">
+                    th:placeholder="${#messages.msg('passwordCheck')}">
                 <input type="hidden" th:field="*{pwdCheck}"></input>
                 <!-- 비밀번호 확인 ALT -->
                 <span id="passwordAlert"></span>
@@ -100,18 +102,20 @@
                     onclick="execDaumPostcode()" th:text="${#messages.msg('addressFind')}">
                     주소 찾기
                 </button>
-                <input type="text" th:field="*{address}" class="form-control" th:placeholder="${#messages.msg('address')}"
-                    onclick="execDaumPostcode()">
+                <input type="text" th:field="*{address}" class="form-control"
+                    th:placeholder="${#messages.msg('address')}" onclick="execDaumPostcode()">
             </div>
             <div class="form-group">
                 <label th:for="phone" th:text="${#messages.msg('phoneNumber')}">전화번호</label>
-                <input type="text" th:field="*{phone}" class="form-control" th:placeholder="${#messages.msg('phoneNumber')}">
+                <input type="text" th:field="*{phone}" class="form-control"
+                    th:placeholder="${#messages.msg('phoneNumber')}">
             </div>
             <div class="form-group">
                 <label th:for="email" th:text="${#messages.msg('email')}">이메일</label>
                 <input type="email" th:field="*{email}" class="form-control" th:placeholder="${#messages.msg('email')}">
             </div>
-            <button type="submit" class="btn btn-outline-dark" style="margin-top : 15px" th:text="${#messages.msg('signup')}">회원가입</button>
+            <button type="submit" class="btn btn-outline-dark" style="margin-top : 15px"
+                th:text="${#messages.msg('signup')}">회원가입</button>
         </form>
         <form th:action="@{/ShopMiniMall/main}" method="get" class="d-flex">
             <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('cancel')}">

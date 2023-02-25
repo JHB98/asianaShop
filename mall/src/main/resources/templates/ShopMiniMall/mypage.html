@@ -34,7 +34,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active"
-                            aria-current="page" th:text="|${#messages.msg('welcome')} ${#authentication.name}|"></a>
+                            aria-current="page" th:text="|${#authentication.name}님 ${#messages.msg('welcome')}!|"></a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form role="form" th:action="@{/logout}" method="post">
@@ -46,7 +46,8 @@
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get"
                             class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('mypage')}">
+                            <button class="btn btn-outline-dark" type="submit" style="margin-left : 15px"
+                                th:text="${#messages.msg('mypage')}">
                                 마이페이지
                             </button>
                         </form>
@@ -68,7 +69,7 @@
             </div>
         </div>
 
-        <select onchange="location = this.value">
+        <select class="btn btn-outline-dark mt-auto" onchange="location = this.value">
             <option selected>LANG</option>
             <option value="?lang=kr">KOREA</option>
             <option value="?lang=en">ENGLISH</option>

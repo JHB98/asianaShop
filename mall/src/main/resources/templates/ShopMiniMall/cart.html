@@ -36,7 +36,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active"
-                            aria-current="page" th:text="|${#messages.msg('welcome')} ${#authentication.name}|"></a>
+                            aria-current="page" th:text="|${#authentication.name}님 ${#messages.msg('welcome')}!|"></a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form role="form" th:action="@{/logout}" method="post">
@@ -48,7 +48,8 @@
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get"
                             class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('mypage')}">
+                            <button class="btn btn-outline-dark" style="margin-left : 15px" type="submit"
+                                th:text="${#messages.msg('mypage')}">
                                 마이페이지
                             </button>
                         </form>
@@ -68,7 +69,7 @@
                     </button>
                 </form>
 
-                <select onchange="location = this.value">
+                <select class="btn btn-outline-dark mt-auto" onchange="location = this.value">
                     <option selected>LANG</option>
                     <option value="?lang=kr">KOREA</option>
                     <option value="?lang=en">ENGLISH</option>
@@ -100,7 +101,8 @@
                         </thead>
                         <tbody>
                             <tr th:each="cart, stat: ${data}">
-                                <td><input th:id="|cartCheck${stat.index}|" style="zoom:2.0" type="checkbox"
+                                <td><input th:size="${stat.size}" th:onclick="deleteCarts(this.getAttribute('size'))"
+                                        th:id="|cartCheck${stat.index}|" style="zoom:2.0" type="checkbox"
                                         name="cartCheck" /></td>
                                 <td th:id="|cartNum${stat.index}|" th:value="|${cart.cartNum}|"
                                     th:text="|${cart.cartNum}|"></td>
@@ -115,7 +117,8 @@
                                         <div class="input-group-append">
                                             <button th:index="${stat.index}"
                                                 th:onclick="updateCartAmount(this.getAttribute('index'))"
-                                                class="btn btn-outline-dark" type="button" th:text="${#messages.msg('modify2')}">
+                                                class="btn btn-outline-dark" type="button"
+                                                th:text="${#messages.msg('modify2')}">
                                                 수정
                                             </button>
                                         </div>
@@ -126,7 +129,8 @@
                                     <form role="form"
                                         th:action="@{/ShopMiniMall/cart/{cartNum}(cartNum=${cart.cartNum})}"
                                         th:method="delete" class="text-center">
-                                        <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('delete')}">
+                                        <button class="btn btn-outline-dark" type="submit"
+                                            th:text="${#messages.msg('delete')}">
                                             삭제
                                         </button>
                                     </form>
@@ -137,7 +141,8 @@
                 </div>
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get"
                     class="form-check-inline">
-                    <button onclick="requestPay()" class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('buyAll')}">
+                    <button onclick="requestPay()" class="btn btn-outline-dark" type="submit"
+                        th:text="${#messages.msg('buyAll')}">
                         전체 구매
                     </button>
                 </form>
@@ -147,24 +152,27 @@
                         선택 구매
                     </button>
                 </form>
-                <button onclick="requestPay()" class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('order')}">
+                <form role="form" sec:authorize="isAuthenticated()" th:object="${list}" class="form-check-inline"
+                    th:action="@{/ShopMiniMall/cart/list}" th:method="delete">
+                    <input type="hidden" value="" id="list" name="list" class="form-control">
+                    <button class="btn btn-outline-dark" type="submit">
+                        선택 삭제
+                    </button>
+                </form>
+                <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" th:method="delete"
+                    class="form-check-inline">
+                    <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('deleteAll')}">
+                        전체 삭제
+                    </button>
+                </form>
+                <button onclick="requestPay()" class="btn btn-outline-dark" type="submit"
+                    th:text="${#messages.msg('order')}">
                     결제 진행
                 </button>
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/payConfirm}" method="get"
                     class="form-check-inline">
                     <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('orderPage')}">
                         결제확인 페이지
-                    </button>
-                </form>
-
-                <button th:size="${#lists.size(data)}" th:onclick="deleteCarts(this.getAttribute('size'))"
-                    class="btn btn-outline-dark" type="button">
-                    선택 삭제
-                </button>
-                <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" th:method="delete"
-                    class="form-check-inline">
-                    <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('deleteAll')}">
-                        전체 삭제
                     </button>
                 </form>
             </div>

@@ -257,6 +257,28 @@ VALUES
    'BOTTOM'
 );
 ```
+```sql
+update product set price=31 where number = 1111;
+update product set price=27 where number = 2222;
+update product set price=48 where number = 3333;
+update product set price=20 where number = 4214124;
+update product set price=84 where number = 15515;
+update product set price=35 where number = 567567;
+update product set price=31 where number = 464578;
+update product set price=30 where number = 53736;
+update product set price=33 where number = 215415;
+update product set price=41 where number = 692982;
+update product set price=122 where number = 80560;
+update product set price=135 where number = 180484;
+update product set price=68 where number = 1508048;
+update product set price=27 where number = 6812391;
+update product set price=34 where number = 48701498;
+update product set price=45 where number = 91870490;
+update product set price=11 where number = 7980980;
+update product set price=27 where number = 4088049;
+update product set price=88 where number = 65924592;
+update product set price=45 where number = 605940780;
+```
 #### Create# Cart Table
 
 ```sql

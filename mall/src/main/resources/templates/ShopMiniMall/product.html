@@ -76,12 +76,12 @@
                     <div class="small mb-1" th:text="${data.brand}"></div>
                     <h1 class="display-5 fw-bolder" th:text="${data.name}"></h1>
                     <div class="fs-5 mb-5">
-                        <span th:text="|${data.price}원|"></span>
+                        <span th:text="|${data.price}$|"></span>
                     </div>
                     <div sec:authorize="isAuthenticated()" class="d-flex">
-                        <div th:text="|남은 수량 : ${data.count}개|"></div> <!--count 넣기-->
                         <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}"
                             th:object="${cart}" method="post">
+                            <div th:text="|남은 수량 : ${data.count}개|"></div> <!--count 넣기-->
                             <input class="form-control text-center me-3" id="amount" name="amount" type="num"
                                 th:value="1" style="max-width: 3rem" />
                             <input type="hidden" th:value="${data.number}" id="productNum" name="productNum"

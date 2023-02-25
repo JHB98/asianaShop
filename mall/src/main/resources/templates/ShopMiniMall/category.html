@@ -26,31 +26,32 @@
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link active"
-                            aria-current="page" th:text="|${#authentication.name}님 환영합니다!|"></a>
+
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:text="|${#messages.msg('welcome')} ${#authentication.name}|"></a>
                     </li>
                     <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link active"
-                            aria-current="page" th:href="@{/ShopMiniMall/member}">로그인</a>
+                            aria-current="page" th:href="@{/ShopMiniMall/member}" th:text="${#messages.msg('login')}">로그인</a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form role="form" th:action="@{/logout}" method="post">
-                            <button class="btn btn-outline-dark" type="submit">
+                            <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('logout')}">
                                 로그아웃
                             </button>
                         </form>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get" class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit">
+                            <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('mypage')}">
                                 마이페이지
                             </button>
                         </form>
                     </li>
                     <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
-                            th:href="@{/ShopMiniMall/MemberUIServlet}">회원가입</a></li>
+                            th:href="@{/ShopMiniMall/MemberUIServlet}" th:text="${#messages.msg('signup')}">회원가입</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">카테고리</a>
+                            data-bs-toggle="dropdown" aria-expanded="false" th:text="${#messages.msg('category')}">카테고리</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item"
                                     th:onclick="|location.href='@{/ShopMiniMall/product/category/TOP/1}'|">TOP</a></li>
@@ -88,6 +89,13 @@
                         Cart
                     </button>
                 </form>
+
+                <select onchange="location = this.value">
+                    <option selected>LANG</option>
+                    <option value="?lang=kr">KOREA</option>
+                    <option value="?lang=en">ENGLISH</option>
+                    <option value="?lang=cn">CHINESE</option>
+                </select>
             </div>
         </div>
     </nav>

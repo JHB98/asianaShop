@@ -27,4 +27,8 @@
     <delete id="deleteCartById">
         DELETE FROM cart WHERE userId = #{userId}
     </delete>
+
+    <delete id="deleteCartByNumberList">
+        DELETE FROM cart WHERE cartnum in (${cartNumList})
+    </delete>
 </mapper>

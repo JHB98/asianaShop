@@ -148,12 +148,7 @@ public class MainController {
 
 	@DeleteMapping("/ShopMiniMall/cart")
 	public void deleteCartById(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
-		System.out.println("ddd");
 		cartService.deleteCartById(userInfo.getUsername());
-		// mv.setViewName("/ShopMiniMall/cart");
-		// mv.addObject("data", cartService.getCart(userInfo.getUsername()));
-
-		// return mv;
 	}
 
 	@PutMapping("/ShopMiniMall/cart/{cartNum}")
@@ -177,8 +172,9 @@ public class MainController {
 	}
 
 	@PutMapping("/ShopMiniMall/member/{id}")
-	public ModelAndView updateMember(ModelAndView mv, @AuthenticationPrincipal User userInfo, Member ref, @PathVariable("id") String id, Member member) {
-		
+	public ModelAndView updateMember(ModelAndView mv, @AuthenticationPrincipal User userInfo, Member ref,
+			@PathVariable("id") String id, Member member) {
+
 		memberService.putMember(id, ref);
 
 		mv.setViewName("/ShopMiniMall/mypage");
@@ -186,5 +182,9 @@ public class MainController {
 		mv.addObject("ref", member);
 		return mv;
 	}
-}
 
+	@DeleteMapping("/ShopMiniMall/cart/list/{cartNumList}")
+	public void deleteCartByNumberList(@PathVariable("cartNumList") String cartNumList) {
+		cartService.deleteCartByNumberList(cartNumList);
+	}
+}

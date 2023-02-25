@@ -13,20 +13,22 @@ public class GlobalExceptionHandler {
     // 404예외처리 핸들러
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handle404(NoHandlerFoundException e){
-        System.out.println("error!!!!! = " );
+    public String handle404(NoHandlerFoundException e) {
+        System.out.println("error!!!!! = 404");
         return "error";
     }
+
     // 데이터베이스오류
     @ExceptionHandler(DataAccessException.class)
     public String handleDataAccessException(DataAccessException e) {
-        System.out.println("error!!!!! = " );
+        System.out.println("error!!!!! = DB");
         return "error";
     }
+
     // 500에러처리
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e) {
-        System.out.println("error!!!!! = " );
+        System.out.println("error!!!!! = 500");
         return "error";
     }
 }

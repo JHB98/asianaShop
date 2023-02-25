@@ -1,5 +1,6 @@
 package com.asiana.mall.service;
 
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +9,7 @@ import com.asiana.mall.vo.Cart;
 
 @Service
 public class CartServiceImpl implements CartService {
- 
+
     private CartMapper cartMapper;
 
     public CartServiceImpl(CartMapper cartMapper) {
@@ -43,5 +44,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public void deleteCartById(String userId) {
         cartMapper.deleteCartById(userId);
+    }
+
+    @Override
+    public void deleteCartByNumberList(String cartNumList) {
+        cartMapper.deleteCartByNumberList(cartNumList);
     }
 }

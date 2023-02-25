@@ -14,7 +14,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    
+
 </head>
 
 <body>
@@ -41,17 +41,18 @@
                         </form>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get" class="d-flex">
+                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get"
+                            class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">
                                 마이페이지
                             </button>
                         </form>
                     </li>
-                    <div class ="animated-text">
-                        <div class="line">USDKRW 1298.16</div>
-                        <div class="line">USDJPY 9.62</div>
-                        <div class="line">USDCNY 188.16</div>
-                        <div class="line">USDEUR 1,376.36</div>
+                    <div class="animated-text">
+                        <div class="line">USD / KRW 1298.16</div>
+                        <div class="line">USD / JPY 9.62</div>
+                        <div class="line">USD / CNY 188.16</div>
+                        <div class="line">USD / EUR 1,376.36</div>
                     </div>
 
                     <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
@@ -78,20 +79,22 @@
                         <span th:text="|${data.price}원|"></span>
                     </div>
                     <div sec:authorize="isAuthenticated()" class="d-flex">
-                        <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/purchase}" method="get">
+                        <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/purchase}"
+                            method="get">
                             <input class="form-control text-center me-3" id="amount" name="amount" type="number"
                                 th:value="1" style="max-width: 3rem" />
-
                             <p th:text="|남은 수량 : ${data.count}개|"></p> <!--count 넣기-->
 
-                            <button class="btn btn-outline-dark" style="margin-top : 15px" th:onclick="createCartItem([[${data}]])" type="button">
+                            <button class="btn btn-outline-dark" style="margin-top : 15px"
+                                th:onclick="createCartItem([[${data}]])" type="button">
                                 <i class="bi-cart-fill me-1"></i>
-                                장바구니 넣기 
+                                장바구니 넣기
                             </button>
-	                        <input type="hidden" th:value="${data.number}" id="number" name="number" class="form-control">                            
-                            <button class="btn btn-outline-dark"  style="margin-top : 15px" type="submit">
+                            <input type="hidden" th:value="${data.number}" id="number" name="number"
+                                class="form-control">
+                            <button class="btn btn-outline-dark" style="margin-top : 15px" type="submit">
                                 <i class="bi-cart-fill me-1"></i>
-                                	바로 구매
+                                바로 구매
                             </button>
                         </form>
                     </div>

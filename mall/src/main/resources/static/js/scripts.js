@@ -37,35 +37,35 @@ var IMP = window.IMP;
 IMP.init("imp11174960");
 function requestPay () {
     IMP.request_pay({
-        pg : 'kcp.{상점ID}',
-        pay_method : 'card',
-        merchant_uid: "57008833-33005", 
-        name : '의류',
-        amount : 100,
-        buyer_email : 'Iamport@chai.finance',
-        buyer_name : '포트원 기술지원팀',
-        buyer_tel : '010-1234-5678',
-        buyer_addr : '서울특별시 강남구 삼성동',
-        buyer_postcode : '123-456'
-    }, 
-    function (rsp) { // callback
-        console.log(rsp);
-        if (rsp.success) {
-            var msg = '결제 완료되었습니다.';
-            console.log("성공");
+        pg: 'kcp.{상점ID}',
+        pay_method: 'card',
+        merchant_uid: "57008833-33005",
+        name: '의류',
+        amount: 100,
+        buyer_email: 'Iamport@chai.finance',
+        buyer_name: '포트원 기술지원팀',
+        buyer_tel: '010-1234-5678',
+        buyer_addr: '서울특별시 강남구 삼성동',
+        buyer_postcode: '123-456'
+    },
+        function (rsp) { // callback
             console.log(rsp);
-            location.href = 'payConfirm';
-            // 결제에 성공하면 수량 변경 실행하기
-            
+            if (rsp.success) {
+                var msg = '결제 완료되었습니다.';
+                console.log("성공");
+                console.log(rsp);
+                location.href = 'payConfirm';
+                // 결제에 성공하면 수량 변경 실행하기
 
-        } else {
-            var msg = '결제 취소되었습니다.';
-            console.log("실패");
-            console.log(rsp);
-            location.href = 'main';
-        }
-        alert(msg);
-    });
+
+            } else {
+                var msg = '결제 취소되었습니다.';
+                console.log("실패");
+                console.log(rsp);
+                location.href = 'main';
+            }
+            alert(msg);
+        });
 }
 
 
@@ -153,7 +153,29 @@ function execDaumPostcode () {
             document.getElementById("address").focus();
         }
     }).open();
+}
 
+function deleteCarts (size) {
+    let cartNumList = ''
 
-    
+    for (let i = 0; i < size; i++) {
+        if ($('#cartCheck' + i).is(":checked") == true) {
+            let cartNum = document.getElementById("cartNum" + i).innerText;
+            cartNumList += cartNum + ',';
+        }
+    }
+
+    cartNumList = cartNumList.slice(0, cartNumList.length - 1);
+
+    $.ajax({
+        url: "/ShopMiniMall/cart/list/" + cartNumList,
+        type: "DELETE",
+        beforeSend: function (jqXHR, settings) {
+            var header = $("meta[name='_csrf_header']").attr("content");
+            var token = $("meta[name='_csrf']").attr("content");
+            jqXHR.setRequestHeader(header, token);
+        }
+    }).done(function () {
+        // window.location.reload();
+    });
 }

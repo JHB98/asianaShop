@@ -54,11 +54,11 @@
                         </form>
                     </li>
                 </ul>
-                <div class ="animated-text">
-                    <div class="line">USDKRW 1298.16</div>
-                    <div class="line">USDJPY 9.62</div>
-                    <div class="line">USDCNY 188.16</div>
-                    <div class="line">USDEUR 1,376.36</div>
+                <div class="animated-text">
+                    <div class="line">USD / KRW 1298.16</div>
+                    <div class="line">USD / JPY 9.62</div>
+                    <div class="line">USD / CNY 188.16</div>
+                    <div class="line">USD / EUR 1,376.36</div>
                 </div>
 
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
@@ -93,7 +93,8 @@
                         </thead>
                         <tbody>
                             <tr th:each="cart, stat: ${data}">
-                                <td><input style="zoom:2.0" type="checkbox" name="myCheckBox" /></td>
+                                <td><input th:id="|cartCheck${stat.index}|" style="zoom:2.0" type="checkbox"
+                                        name="cartCheck" /></td>
                                 <td th:id="|cartNum${stat.index}|" th:value="|${cart.cartNum}|"
                                     th:text="|${cart.cartNum}|"></td>
                                 <td th:text="|${cart.brand}|"></td>
@@ -148,6 +149,11 @@
                         결제확인 페이지
                     </button>
                 </form>
+
+                <button th:size="${#lists.size(data)}" th:onclick="deleteCarts(this.getAttribute('size'))"
+                    class="btn btn-outline-dark" type="button">
+                    선택 삭제
+                </button>
                 <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" th:method="delete"
                     class="form-check-inline">
                     <button class="btn btn-outline-dark" type="submit">

@@ -76,11 +76,11 @@
                         </ul>
                     </li>
                 </ul>
-                <div class ="animated-text">
-                    <div class="line">USDKRW 1298.16</div>
-                    <div class="line">USDJPY 9.62</div>
-                    <div class="line">USDCNY 188.16</div>
-                    <div class="line">USDEUR 1,376.36</div>
+                <div class="animated-text">
+                    <div class="line">USD / KRW 1298.16</div>
+                    <div class="line">USD / JPY 9.62</div>
+                    <div class="line">USD / CNY 188.16</div>
+                    <div class="line">USD / EUR 1,376.36</div>
                 </div>
 
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
@@ -155,7 +155,8 @@
         <div class="text-center">
             <th:block th:with="perPage=${Page.perPage}, totalPage=${Page.totalPage}, curPage=${Page.curPage}">
                 <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
-                    <button class="btn btn-outline-dark mt-auto" style="background-color : #6E6E6E" th:if="${i==curPage}">[[${i}]]</button>
+                    <button class="btn btn-outline-dark mt-auto" style="background-color : #6E6E6E"
+                        th:if="${i==curPage}">[[${i}]]</button>
                     <button class="btn btn-outline-dark mt-auto"
                         th:onclick="|location.href='@{/ShopMiniMall/main(curPage=${i})}'|"
                         th:if="${i!=curPage}">[[${i}]]</button>

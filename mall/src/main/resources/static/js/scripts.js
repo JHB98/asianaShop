@@ -33,9 +33,32 @@ function getProductByCategory (category) {
     });
 }
 
-var IMP = window.IMP;
-IMP.init("imp11174960");
-function requestPay () {
+function requestPay (isObject, cart) {
+    let data = [];
+    if (isObject != 'Object') {
+        for (let i = 0; i < cart.length; i++) {
+            data.push({
+                userId: cart[i].userId,
+                flightNum: document.getElementById("flight_id").value,
+                productNum: cart[i].productNum,
+                amount: cart[i].amount,
+                price: cart[i].totalPrice
+            })
+        }
+    }
+    else {
+        data.push({
+            userId: cart.userId,
+            flightNum: document.getElementById("flight_id").value,
+            productNum: cart.productNum,
+            amount: cart.amount,
+            price: cart.totalPrice
+        })
+    }
+    console.log(cart);
+    console.log(data);
+    var IMP = window.IMP;
+    IMP.init("imp11174960");
     IMP.request_pay({
         pg: 'kcp.{상점ID}',
         pay_method: 'card',
@@ -54,18 +77,39 @@ function requestPay () {
                 var msg = '결제 완료되었습니다.';
                 console.log("성공");
                 console.log(rsp);
-                location.href = 'payConfirm';
-                // 결제에 성공하면 수량 변경 실행하기
-
-
+                location.href = '../cart';
             } else {
                 var msg = '결제 취소되었습니다.';
                 console.log("실패");
                 console.log(rsp);
-                location.href = 'main';
+                $.ajax({
+                    url: "/ShopMiniMall/purchase",
+                    type: "POST",
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    beforeSend: function (jqXHR, settings) {
+                        var header = $("meta[name='_csrf_header']").attr("content");
+                        var token = $("meta[name='_csrf']").attr("content");
+                        jqXHR.setRequestHeader(header, token);
+                    }
+                })
+                $.ajax({
+                    url: "/ShopMiniMall/product/amount",
+                    type: "PUT",
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    beforeSend: function (jqXHR, settings) {
+                        var header = $("meta[name='_csrf_header']").attr("content");
+                        var token = $("meta[name='_csrf']").attr("content");
+                        jqXHR.setRequestHeader(header, token);
+                    }
+                })
             }
             alert(msg);
-        });
+            location.href = '../mypage';
+        })
 }
 
 
@@ -155,7 +199,7 @@ function execDaumPostcode () {
     }).open();
 }
 
-function deleteCarts (size) {
+function checkCarts (size) {
     let cartNumList = ''
 
     for (let i = 0; i < size; i++) {
@@ -166,4 +210,28 @@ function deleteCarts (size) {
     }
 
     document.getElementById('list').value = cartNumList.slice(0, cartNumList.length - 1);
+    document.getElementById('purchaseList').value = cartNumList.slice(0, cartNumList.length - 1);
+}
+
+function selectFlight (index) {
+    document.getElementById('flight_id').value = document.getElementById("flightCheck" + index).value;
+    document.getElementById('requestPay').disabled = false
+}
+
+function getFlightList () {
+    let arrival = document.getElementById("arrival").value
+    let departure = document.getElementById("departure").value
+    let boardingDate = document.getElementById("boardingDate").value
+
+    $.ajax({
+        url: "/ShopMiniMall/flight",
+        type: "get",
+        data: {
+            arrival: arrival,
+            departure: departure,
+            boardingDate: boardingDate
+        }
+    }).done(function (result) {
+        document.getElementById("flightList").innerHTML = result;
+    });
 }

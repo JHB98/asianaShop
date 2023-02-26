@@ -13,5 +13,36 @@
 	    	</foreach>
 	    	</where>
 	</select>
+
+	<select id="selectPurchase" resultType="Purchase">
+			SELECT 
+			purchase_num purchaseNum,
+			p.flight_num flightNum,
+			f.departure departure,
+			f.arrival arrival,
+			f.boardingDate boardingDate,
+			p.product_num productNum,
+			pr.brand  brand,
+			pr.name name,
+			p.amount amount,
+			p.price price
+			FROM purchase p 
+			JOIN product pr ON p.product_num = pr.number 
+			JOIN flights f ON p.flight_num = f.flight_id
+			WHERE p.user_num = #{id}
+    </select>
+
+	<insert id="insertPurchase">
+	    INSERT INTO purchase 
+		(
+			user_num, flight_num, product_num, amount, price
+		) 
+		VALUES 
+		<foreach collection="purchaseList" item="item" separator=",">
+		(
+			#{item.userId} , #{item.flightNum}, #{item.productNum}, #{item.amount}, #{item.price}
+		)
+		</foreach>
+	</insert>
 </mapper>
  

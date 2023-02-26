@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.asiana.mall.vo.Product;
+import com.asiana.mall.vo.Purchase;
 
 @Mapper
 public interface ProductMapper {
@@ -16,7 +17,10 @@ public interface ProductMapper {
     List<Product> selectProductList();
 
     void updateProductCount(@Param("productNum") int productNum, @Param("totalCount") int totalCount);
+
     int selectTotalRecordByCategory(@Param("category") String category);
 
     List<Product> selectProductListByCategory(@Param("category") String category);
+
+    void updateProductAmount(@Param("purchase") List<Purchase> list);
 }

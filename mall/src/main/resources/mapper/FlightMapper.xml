@@ -4,9 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.asiana.mall.repository.FlightMapper">
-    <select id="searchFlight" resultType="Flight" parameterType="Flight">
-    	select *
-    	from flights
-    	where arrival like CONCAT('%', #{arrival}, '%') and departure like CONCAT('%', #{departure}, '%') and boardingDate = #{boardingDate}
+    <select id="selectFlight" resultType="Flight">
+        SELECT * FROM flights WHERE departure = #{flight.departure} and arrival = #{flight.arrival} and boardingDate = #{flight.boardingDate};
     </select>
 </mapper>

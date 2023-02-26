@@ -35,20 +35,21 @@
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <form role="form" th:action="@{/logout}" method="post">
-                            <button class="btn btn-outline-dark" type="submit">
+                            <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('logout')}">
                                 로그아웃
                             </button>
                         </form>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}"
-                            style="margin-left : 15px" method="get" class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit">
+                        <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/mypage}" method="get"
+                            class="d-flex">
+                            <button class="btn btn-outline-dark" type="submit" style="margin-left : 15px"
+                                th:text="${#messages.msg('mypage')}">
                                 마이페이지
                             </button>
                         </form>
                     </li>
-                    <div class="animated-text">
+                    <div class="animated-text" style="color: #212529">
                         <div class="line">USD / KRW 1298.16</div>
                         <div class="line">USD / JPY 9.62</div>
                         <div class="line">USD / CNY 188.16</div>
@@ -59,7 +60,7 @@
                             th:href="@{/ShopMiniMall/MemberUIServlet}">회원가입</a></li>
                 </ul>
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit">
+                    <button class="btn btn-outline-dark" th:text="${#messages.msg('cart')}" type="submit">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                     </button>
@@ -81,24 +82,25 @@
                     <div sec:authorize="isAuthenticated()" class="d-flex">
                         <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}"
                             th:object="${cart}" method="post">
-                            <div th:text="|남은 수량 : ${data.count}개|"></div> <!--count 넣기-->
+                            <div th:text="|${#messages.msg('quantityLeft')} : ${data.count}|"></div> <!--count 넣기-->
                             <input class="form-control text-center me-3" id="amount" name="amount" type="num"
                                 th:value="1" style="max-width: 3rem" />
                             <input type="hidden" th:value="${data.number}" id="productNum" name="productNum"
                                 class="form-control">
-                            <button class="btn btn-outline-dark" style="margin-top : 15px" type="submit">
+                            <button class="btn btn-outline-dark" th:text="${#messages.msg('addCart')}"
+                                style="margin-top : 15px" type="submit">
                                 <i class="bi-cart-fill me-1"></i>
                                 장바구니 추가
                             </button>
                         </form>
-                        <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/purchase}"
-                            method="get">
-                            <button class="btn btn-outline-dark" style="margin-top : 15px" type="submit">
-                                <i class="bi-cart-fill me-1"></i>
-                                바로 구매
-                            </button>
-                        </form>
                     </div>
+                    <form role="form" sec:authorize="isAuthenticated()" th:object="${list}"
+                        th:action="@{/ShopMiniMall/purchase}" style="margin-top : 15px" method="get">
+                        <input type="hidden" th:value="${data.number}" id="list" name="list" class="form-control">
+                        <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('buyNow')}">
+                            바로 구매
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -113,8 +115,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script th:src="@{/js/scripts.js}"></script>
-    <script th:src="@{/js/PurchasePage/purchase.js}"></script>
-    <script th:src="@{/js/ProductPage/cart.js}"></script>
 </body>
 
 </html>

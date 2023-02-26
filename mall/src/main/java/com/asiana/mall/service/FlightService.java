@@ -5,5 +5,5 @@ import java.util.List;
 import com.asiana.mall.vo.Flight;
 
 public interface FlightService {
-	public List<Flight> searchFlight(Flight flight) throws Exception;
+	public List<Flight> getFlight(Flight flight) throws Exception;
 }

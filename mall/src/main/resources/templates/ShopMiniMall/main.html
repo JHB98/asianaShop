@@ -57,30 +57,30 @@
                             data-bs-toggle="dropdown" aria-expanded="false"
                             th:text="${#messages.msg('category')}">카테고리</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item"
+                            <li><a th:text="${#messages.msg('top')}" class="dropdown-item"
                                     th:onclick="|location.href='@{/ShopMiniMall/product/category/TOP/1}'|">TOP</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item"
+                            <li><a th:text="${#messages.msg('dress')}" class="dropdown-item"
                                     th:onclick="|location.href='@{/ShopMiniMall/product/category/DRESS/1}'|">DRESS</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item"
+                            <li><a th:text="${#messages.msg('outer')}" class="dropdown-item"
                                     th:onclick="|location.href='@{/ShopMiniMall/product/category/OUTER/1}'|">OUTER</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item"
+                            <li><a th:text="${#messages.msg('bottom')}" class="dropdown-item"
                                     th:onclick="|location.href='@{/ShopMiniMall/product/category/BOTTOM/1}'|">BOTTOM</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
-                <div class="animated-text">
+                <div class="animated-text" style="color: #212529">
                     <div class="line">USD / KRW 1298.16</div>
                     <div class="line">USD / JPY 9.62</div>
                     <div class="line">USD / CNY 188.16</div>
@@ -88,7 +88,7 @@
                 </div>
 
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit">
+                    <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('cart')}">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                     </button>
@@ -150,7 +150,8 @@
                                         <input type="hidden" th:value="${product.number}" id="productNum"
                                             name="productNum" class="form-control">
                                         <input type="hidden" th:value=1 id="amount" name="amount" class="form-control">
-                                        <button class="btn btn-outline-dark mt-auto" type="submit">
+                                        <button class="btn btn-outline-dark mt-auto"
+                                            th:text="${#messages.msg('addCart')}" type="submit">
                                             <i class="bi-cart-fill me-1"></i>
                                             Add to cart
                                         </button>

@@ -18,4 +18,6 @@ public interface CartMapper {
     void deleteCartById(@Param("userId") String userId);
 
     void deleteCartByNumberList(@Param("cartNumList") String cartNumList);
+
+    List<Cart> selectCartByNumberList(@Param("cartNumList") String cartNumList);
 }

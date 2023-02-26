@@ -6,26 +6,24 @@ import org.springframework.stereotype.Service;
 
 import com.asiana.mall.repository.PurchaseMapper;
 import com.asiana.mall.vo.Product;
-import com.asiana.mall.vo.PurchaseInfo;
+import com.asiana.mall.vo.Purchase;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 	private PurchaseMapper purchaseMapper;
-	
+
 	public PurchaseServiceImpl(PurchaseMapper purchaseMapper) {
 		this.purchaseMapper = purchaseMapper;
 	}
-	
+
 	@Override
-	public PurchaseInfo getPurchaseInfo(int purchaseId) {
-		PurchaseInfo result = purchaseMapper.selectPurchaseInfo(purchaseId);
-		return result;
+	public List<Purchase> getPurchase(String userId) {
+		return purchaseMapper.selectPurchase(userId);
 	}
 
 	@Override
-	public int createPurchase(List<PurchaseInfo> purchaseInfoList) {
-		int result = purchaseMapper.insertPurchase(purchaseInfoList);
-		return result;
+	public void postPurchase(List<Purchase> purchaseList) {
+		purchaseMapper.insertPurchase(purchaseList);
 	}
 
 	@Override

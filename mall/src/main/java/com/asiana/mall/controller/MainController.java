@@ -19,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.asiana.mall.service.CartServiceImpl;
 import com.asiana.mall.service.MemberServiceImpl;
+import com.asiana.mall.service.PurchaseServiceImpl;
 import com.asiana.mall.vo.Member;
 import com.asiana.mall.vo.Message;
+import com.asiana.mall.vo.Purchase;
 import com.asiana.mall.vo.Cart;
 import com.asiana.mall.vo.InfoList;
 import java.util.Map;
@@ -31,10 +33,13 @@ public class MainController {
 
 	private final MemberServiceImpl memberService;
 	private final CartServiceImpl cartService;
+	private final PurchaseServiceImpl purchaseService;
 
-	public MainController(MemberServiceImpl memberService, CartServiceImpl cartService) {
+	public MainController(MemberServiceImpl memberService, CartServiceImpl cartService,
+			PurchaseServiceImpl purchaseService) {
 		this.memberService = memberService;
 		this.cartService = cartService;
+		this.purchaseService = purchaseService;
 	}
 
 	public String encodeBcrypt(String pwd) {
@@ -127,18 +132,12 @@ public class MainController {
 		cartService.putCartAmount(cartNum, amount);
 	}
 
-	@GetMapping("/ShopMiniMall/payConfirm")
-	public ModelAndView getpayConfirm(ModelAndView mv, @AuthenticationPrincipal User userInfo) {
-		mv.setViewName("/ShopMiniMall/payConfirm");
-		mv.addObject("data", cartService.getCart(userInfo.getUsername()));
-		return mv;
-	}
-
 	@GetMapping("/ShopMiniMall/mypage")
 	public ModelAndView getmypage(ModelAndView mv, @AuthenticationPrincipal User userInfo, Member member) {
 		mv.setViewName("/ShopMiniMall/mypage");
 		mv.addObject("user", memberService.getMemberById(userInfo.getUsername()));
 		mv.addObject("ref", member);
+		mv.addObject("purchase", purchaseService.getPurchase(userInfo.getUsername()));
 		return mv;
 	}
 

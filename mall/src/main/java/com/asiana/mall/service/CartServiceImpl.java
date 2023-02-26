@@ -49,4 +49,14 @@ public class CartServiceImpl implements CartService {
     public void deleteCartByNumberList(String cartNumList) {
         cartMapper.deleteCartByNumberList(cartNumList);
     }
+
+    @Override
+    public List<Cart> getCartByNumberList(String cartNumList) {
+
+        List<Cart> cartList = cartMapper.selectCartByNumberList(cartNumList);
+        for (Cart refCart : cartList) {
+            refCart.setTotalPrice(refCart.getPrice() * refCart.getAmount());
+        }
+        return cartList;
+    }
 }

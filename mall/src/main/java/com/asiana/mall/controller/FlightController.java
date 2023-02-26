@@ -22,10 +22,8 @@ public class FlightController {
 
 	@GetMapping("/ShopMiniMall/flight")
 	public ModelAndView getFlightList(ModelAndView mv, Flight flight) throws Exception {
-		System.out.println(flight);
-
-		mv.setViewName("/ShopMiniMall/flight :: flightListFragment");
-		mv.addObject("flightList", flightService.searchFlight(flight));
+		mv.setViewName("/ShopMiniMall/purchase :: flightList");
+		mv.addObject("flightInfo", flightService.getFlight(flight));
 		return mv;
 	}
 }

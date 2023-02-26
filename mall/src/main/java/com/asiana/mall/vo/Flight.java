@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Alias("Flight")
 public class Flight {
-	private int flightId;
+	private int flight_id;
 	private String departure;
 	private String arrival;
 	private Date boardingDate;

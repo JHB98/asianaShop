@@ -55,7 +55,7 @@
                         </form>
                     </li>
                 </ul>
-                <div class="animated-text">
+                <div class="animated-text" style="color: #212529">
                     <div class="line">USD / KRW 1298.16</div>
                     <div class="line">USD / JPY 9.62</div>
                     <div class="line">USD / CNY 188.16</div>
@@ -63,7 +63,7 @@
                 </div>
 
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit">
+                    <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('cart')}">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                     </button>
@@ -83,32 +83,34 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h2 class="m-0 font-weight-bold">장바구니</h2>
+                <h2 class="m-0 font-weight-bold" th:text="${#messages.msg('cart')}">장바구니</h2>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Check</th>
-                                <th>Cart Number</th>
-                                <th>Brand</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Amount</th>
-                                <th>Total Price</th>
+                                <th th:text="${#messages.msg('check')}">Check</th>
+                                <th th:text="${#messages.msg('cartNumber')}">Cart Number</th>
+                                <th th:text="${#messages.msg('image')}">Image</th>
+                                <th th:text="${#messages.msg('brand')}">Brand</th>
+                                <th th:text="${#messages.msg('name')}">Name</th>
+                                <th th:text="${#messages.msg('price')}">Price</th>
+                                <th th:text="${#messages.msg('amount')}">Amount</th>
+                                <th th:text="${#messages.msg('totalPrice')}">Total Price</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="cart, stat: ${data}">
-                                <td><input th:size="${stat.size}" th:onclick="deleteCarts(this.getAttribute('size'))"
+                                <td><input th:size="${stat.size}" th:onclick="checkCarts(this.getAttribute('size'))"
                                         th:id="|cartCheck${stat.index}|" style="zoom:2.0" type="checkbox"
                                         name="cartCheck" /></td>
                                 <td th:id="|cartNum${stat.index}|" th:value="|${cart.cartNum}|"
                                     th:text="|${cart.cartNum}|"></td>
+                                <td><img th:src="|/img/${cart.productNum}.jpg|" width="200" height="200"></td>
                                 <td th:text="|${cart.brand}|"></td>
                                 <td th:text="|${cart.name}|"></td>
-                                <td th:text="|${#numbers.formatInteger(cart.price,4,'COMMA')}$|"></td>
+                                <td th:text="|${cart.price}$|"></td>
                                 <td width="150">
                                     <div class="input-group">
                                         <input type="number" class="form-control bg-light small" aria-label="Search"
@@ -124,7 +126,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td th:text="|${#numbers.formatInteger(cart.totalPrice,4,'COMMA')}$|"></td>
+                                <td th:text="|${cart.totalPrice}$|"></td>
                                 <td>
                                     <form role="form"
                                         th:action="@{/ShopMiniMall/cart/{cartNum}(cartNum=${cart.cartNum})}"
@@ -139,24 +141,17 @@
                         </tbody>
                     </table>
                 </div>
-                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get"
-                    class="form-check-inline">
-                    <button onclick="requestPay()" class="btn btn-outline-dark" type="submit"
-                        th:text="${#messages.msg('buyAll')}">
+                <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/purchase/list}"
+                    method="get" class="form-check-inline">
+                    <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('buyAll')}">
                         전체 구매
                     </button>
                 </form>
-                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get"
-                    class="form-check-inline">
+                <form role="form" sec:authorize="isAuthenticated()" th:object="${list}"
+                    th:action="@{/ShopMiniMall/purchase/list}" method="get" class="form-check-inline">
+                    <input type="hidden" value="" id="purchaseList" name="list" class="form-control">
                     <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('buyOptional')}">
                         선택 구매
-                    </button>
-                </form>
-                <form role="form" sec:authorize="isAuthenticated()" th:object="${list}" class="form-check-inline"
-                    th:action="@{/ShopMiniMall/cart/list}" th:method="delete">
-                    <input type="hidden" value="" id="list" name="list" class="form-control">
-                    <button class="btn btn-outline-dark" type="submit">
-                        선택 삭제
                     </button>
                 </form>
                 <form role="form" sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" th:method="delete"
@@ -165,16 +160,13 @@
                         전체 삭제
                     </button>
                 </form>
-                <!-- <button onclick="requestPay()" class="btn btn-outline-dark" type="submit"
-                    th:text="${#messages.msg('order')}">
-                    결제 진행
-                </button>
-                <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/payConfirm}" method="get"
-                    class="form-check-inline">
-                    <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('orderPage')}">
-                        결제확인 페이지
+                <form role="form" sec:authorize="isAuthenticated()" th:object="${list}" class="form-check-inline"
+                    th:action="@{/ShopMiniMall/cart/list}" th:method="delete">
+                    <input type="hidden" value="" id="list" name="list" class="form-control">
+                    <button class="btn btn-outline-dark" type="submit" th:text="${#messages.msg('deleteOptional')}">
+                        선택 삭제
                     </button>
-                </form> -->
+                </form>
             </div>
         </div>
     </div>

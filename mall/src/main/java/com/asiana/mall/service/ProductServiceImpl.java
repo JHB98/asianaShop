@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.asiana.mall.repository.ProductMapper;
 import com.asiana.mall.vo.Product;
+import com.asiana.mall.vo.Purchase;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -39,11 +40,9 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.selectProductListByCategory(category);
     }
 
-    
-
-    // 재고 예외처리 
-    public class OutofCountException extends RuntimeException{
-        public OutofCountException(String message){
+    // 재고 예외처리
+    public class OutofCountException extends RuntimeException {
+        public OutofCountException(String message) {
             super(message);
         }
     }
@@ -51,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void putProductCount(Cart cart, Product product) {
         int totalCount = product.getCount() - cart.getAmount();
-        if(totalCount < 0){
+        if (totalCount < 0) {
             throw new OutofCountException("상품의 재고가 부족합니다.");
         }
         productMapper.updateProductCount(product.getNumber(), totalCount);
@@ -94,7 +93,8 @@ public class ProductServiceImpl implements ProductService {
 
         // List<Product> 저장
         int offset = (curPage - 1) * perPage;
-        List<Product> list = session.selectList("com.asiana.mall.repository.ProductMapper.selectProductListByCategory", category,
+        List<Product> list = session.selectList("com.asiana.mall.repository.ProductMapper.selectProductListByCategory",
+                category,
                 new RowBounds(offset, perPage));
 
         // pageDTO 최종저장
@@ -103,5 +103,10 @@ public class ProductServiceImpl implements ProductService {
         page.setTotalPage(totalPage);
 
         return page;
+    }
+
+    @Override
+    public void putProductAmount(List<Purchase> list) {
+        productMapper.updateProductAmount(list);
     }
 }

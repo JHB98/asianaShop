@@ -2,12 +2,19 @@ package com.asiana.mall.controller;
 
 import com.asiana.mall.service.ProductService;
 import com.asiana.mall.vo.Cart;
+import com.asiana.mall.vo.InfoList;
 import com.asiana.mall.vo.Page;
 import com.asiana.mall.vo.Product;
+import com.asiana.mall.vo.Purchase;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,13 +45,17 @@ public class ProductController {
     }
 
     @GetMapping("/ShopMiniMall/product/{number}")
-    public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart,
-            Product product) {
+    public ModelAndView getProductById(@PathVariable("number") int number, ModelAndView mv, Cart cart, InfoList list) {
         mv.setViewName("/ShopMiniMall/product");
         mv.addObject("cart", cart);
         mv.addObject("data", productService.getProductById(number));
-        mv.addObject("product", product);
+        mv.addObject("list", list);
 
         return mv;
+    }
+
+    @PutMapping("/ShopMiniMall/product/amount")
+    public void putProductAmount(@RequestBody List<Purchase> list) {
+        productService.putProductAmount(list);
     }
 }

@@ -15,4 +15,6 @@ public interface CartService {
     void putCartAmount(int cartNum, int amount);
 
     void deleteCartByNumberList(String cartNumList);
+
+    List<Cart> getCartByNumberList(String cartNumList);
 }

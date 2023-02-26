@@ -53,7 +53,7 @@
                         </form>
                     </li>
                 </ul>
-                <div class="animated-text">
+                <div class="animated-text" style="color: #212529">
                     <div class="line">USD / KRW 1298.16</div>
                     <div class="line">USD / JPY 9.62</div>
                     <div class="line">USD / CNY 188.16</div>
@@ -61,7 +61,7 @@
                 </div>
 
                 <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/cart}" method="get" class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit">
+                    <button class="btn btn-outline-dark" th:text="${#messages.msg('cart')}" type="submit">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                     </button>
@@ -120,6 +120,48 @@
                         수정하기
                     </button>
                 </form>
+            </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h2 class="m-0 font-weight-bold" th:text="${#messages.msg('checkOrderAndreceiptInformation')}">주문 및 수령
+                    정보 확인</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th th:text="${#messages.msg('purchaseNumber')}">Purchase Number</th>
+                                <th th:text="${#messages.msg('flightNumber')}">Flight Number</th>
+                                <th th:text="${#messages.msg('arrival')}">Arrival</th>
+                                <th th:text="${#messages.msg('departure')}">Departure</th>
+                                <th th:text="${#messages.msg('boardingDate')}">BoardingDate</th>
+                                <th th:text="${#messages.msg('name')}">Product name</th>
+                                <th th:text="${#messages.msg('amount')}">Amount</th>
+                                <th th:text="${#messages.msg('price')}">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${purchase}">
+                                <td th:text="|${item.purchaseNum}|"></td>
+                                <td th:text="|${item.flightNum}|"></td>
+                                <td th:text="|${item.arrival}|"></td>
+                                <td th:text="|${item.departure}|"></td>
+                                <td th:text="|${item.boardingDate}|"></td>
+                                <td th:text="|${item.brand} ${item.name}|"></td>
+                                <td th:text="|${item.amount}|"></td>
+                                <td th:text="|${item.price}|"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <form sec:authorize="isAuthenticated()" th:action="@{/ShopMiniMall/main}" method="get"
+                        class="form-check-inline">
+                        <button class="btn btn-outline-dark" type="submit">
+                            메인으로
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

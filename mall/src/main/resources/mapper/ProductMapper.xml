@@ -51,6 +51,7 @@
             set count = #{totalCount}
         where productNum = #{productNum}
     </update>
+
     <select id="selectProductListByCategory" resultType="Product">
         select *
         from product
@@ -58,4 +59,11 @@
         order by number desc
     </select>
 
+   <update id="updateProductAmount">
+		<foreach collection="purchase" item="item">
+            UPDATE product
+            SET count = count - #{item.amount}
+            WHERE number = #{item.productNum}
+		</foreach>
+    </update>
 </mapper>

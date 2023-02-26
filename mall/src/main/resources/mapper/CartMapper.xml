@@ -6,7 +6,8 @@
 <mapper namespace="com.asiana.mall.repository.CartMapper">
 
     <select id="selectCart" resultType="Cart">
-			SELECT * FROM cart c JOIN product p ON c.productNum = p.number WHERE userId = #{userId}
+        SELECT * FROM cart c JOIN product p ON c.productNum = p.number WHERE userId = #{userId}
+        ORDER BY c.cartNum
     </select>
 
     <insert id="insertCart">
@@ -31,4 +32,8 @@
     <delete id="deleteCartByNumberList">
         DELETE FROM cart WHERE cartnum in (${cartNumList})
     </delete>
+
+    <select id="selectCartByNumberList" resultType="Cart">
+        SELECT * FROM cart c JOIN product p ON c.productNum = p.number WHERE cartnum in (${cartNumList})
+    </select>
 </mapper>

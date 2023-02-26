@@ -22,7 +22,6 @@ import com.asiana.mall.service.MemberServiceImpl;
 import com.asiana.mall.service.PurchaseServiceImpl;
 import com.asiana.mall.vo.Member;
 import com.asiana.mall.vo.Message;
-import com.asiana.mall.vo.Purchase;
 import com.asiana.mall.vo.Cart;
 import com.asiana.mall.vo.InfoList;
 import java.util.Map;

@@ -77,7 +77,7 @@ function requestPay (isObject, cart) {
                 var msg = '결제 완료되었습니다.';
                 console.log("성공");
                 console.log(rsp);
-                location.href = '../cart';
+                location.href = 'http://localhost:8080/ShopMiniMall/cart';
             } else {
                 var msg = '결제 취소되었습니다.';
                 console.log("실패");
@@ -108,7 +108,7 @@ function requestPay (isObject, cart) {
                 })
             }
             alert(msg);
-            location.href = '../mypage';
+            location.href = 'http://localhost:8080/ShopMiniMall/mypage';
         })
 }
 

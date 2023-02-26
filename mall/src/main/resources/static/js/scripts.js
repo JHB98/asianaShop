@@ -62,7 +62,7 @@ function requestPay (isObject, cart) {
     IMP.request_pay({
         pg: 'kcp.{상점ID}',
         pay_method: 'card',
-        merchant_uid: "57008833-33005",
+        merchant_uid: "57008833-33000",
         name: '의류',
         amount: 100,
         buyer_email: 'Iamport@chai.finance',
@@ -76,11 +76,6 @@ function requestPay (isObject, cart) {
             if (rsp.success) {
                 var msg = '결제 완료되었습니다.';
                 console.log("성공");
-                console.log(rsp);
-                location.href = 'http://localhost:8080/ShopMiniMall/cart';
-            } else {
-                var msg = '결제 취소되었습니다.';
-                console.log("실패");
                 console.log(rsp);
                 $.ajax({
                     url: "/ShopMiniMall/purchase",
@@ -106,9 +101,15 @@ function requestPay (isObject, cart) {
                         jqXHR.setRequestHeader(header, token);
                     }
                 })
+                alert(msg);
+                location.href = 'http://localhost:8080/ShopMiniMall/mypage';
+            } else {
+                var msg = '결제 취소되었습니다.';
+                console.log("실패");
+                console.log(rsp);
+                alert(msg);
+                location.href = 'http://localhost:8080/ShopMiniMall/cart';
             }
-            alert(msg);
-            location.href = 'http://localhost:8080/ShopMiniMall/mypage';
         })
 }
 

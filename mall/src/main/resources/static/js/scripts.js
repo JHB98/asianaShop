@@ -62,7 +62,7 @@ function requestPay (isObject, cart) {
     IMP.request_pay({
         pg: 'kcp.{상점ID}',
         pay_method: 'card',
-        merchant_uid: "57008833-33000",
+        merchant_uid: "57008833-33010",
         name: '의류',
         amount: 100,
         buyer_email: 'Iamport@chai.finance',
